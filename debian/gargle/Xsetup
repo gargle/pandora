@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# This script is run as root before showing login widget.
+
+if [ -x /usr/bin/numlockx ]; then
+	    /usr/bin/numlockx on
+fi
+
+/usr/bin/xli -onroot /usr/share/WindowMaker/Backgrounds/Don-Quixote.jpg
+
+#xsetroot -solid rgb:8/8/8

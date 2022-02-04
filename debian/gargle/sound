@@ -1,0 +1,4 @@
+alias snd-card-0 snd-cmipci
+options snd-cmipci index=0
+alias snd-card-1 snd-usb-audio
+options snd-usb-audio index=1

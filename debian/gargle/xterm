@@ -1,0 +1,17 @@
+?package(xterm): needs="X11" sort="ZZ" section="Xterms" title="Xterm" \
+ longtitle="Xterm: terminal emulator for X" command="/usr/bin/uxterm -bg white -fg black"
+
+?package(xterm): needs="X11" sort="ZZ" section="Xterms" title="Xterm red" \
+ longtitle="Xterm: terminal emulator for X" command="/usr/bin/uxterm -bg red -fg black"
+
+?package(xterm): needs="X11" sort="ZZ" section="Xterms" title="Xterm green" \
+ longtitle="Xterm: terminal emulator for X" command="/usr/bin/uxterm -bg green -fg black"
+
+?package(xterm): needs="X11" sort="ZZ" section="Xterms" title="Xterm yellow" \
+ longtitle="Xterm: terminal emulator for X" command="/usr/bin/uxterm -bg yellow -fg black"
+
+?package(xterm): needs="X11" sort="ZZ" section="Xterms" title="Xterm gold" \
+ longtitle="Xterm: terminal emulator for X" command="/usr/bin/uxterm -bg gold -fg black"
+
+?package(xterm): needs="X11" sort="ZZ" section="/" title="Xterm" \
+ longtitle="Xterm: terminal emulator for X" command="/usr/bin/uxterm -bg white -fg black"

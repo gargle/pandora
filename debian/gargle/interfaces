@@ -1,0 +1,31 @@
+# Used by ifup(8) and ifdown(8). See the interfaces(5) manpage or
+# /usr/share/doc/ifupdown/examples for more information.
+
+# The loopback interface
+auto lo
+iface lo inet loopback
+
+# The lan
+auto eth0
+iface eth0 inet static
+	address 192.168.1.1
+	netmask 255.255.255.0
+	network 192.168.1.0
+	broadcast 192.168.1.255
+
+# The wireless
+auto wlan0
+iface wlan0 inet static
+	wireless-mode ad-hoc
+	wireless-essid gargle
+	wireless-key off 
+	wireless-channel 8
+	address 10.0.1.1
+	netmask 255.255.255.0
+	network 10.0.1.0
+	broadcast 10.0.1.255
+
+# The internet
+auto eth1
+iface eth1 inet dhcp
+

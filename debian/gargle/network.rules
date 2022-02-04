@@ -1,0 +1,19 @@
+# /etc/udev/network.rules
+
+# set permission to 644 'chmod 644 network.rules' and symlink 
+# 'ln -s network.rules rules.d/010_network.rules' 
+
+# The following maps a specific MAC address to a specific device
+# Beware, equals means == here, not =
+#         MAC address should be small caps!
+
+# SYSFS = MAC address
+# NAME = name of the device to use, these should correspond
+#        to what's in /etc/network/interfaces
+
+# my local area network
+KERNEL=="eth*", SYSFS{address}=="00:00:00:00:00:00", NAME=="eth-lan"
+
+# my internet connection
+KERNEL=="eth*", SYSFS{address}=="00:00:00:00:00:00", NAME=="eth-net"
+

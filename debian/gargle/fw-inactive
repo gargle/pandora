@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -x
+
+iptables --flush
+iptables -t nat --flush
+
+iptables --policy INPUT ACCEPT 
+iptables --policy OUTPUT ACCEPT
+iptables --policy FORWARD ACCEPT 
+
+iptables -t nat -P PREROUTING ACCEPT
+iptables -t nat -P POSTROUTING ACCEPT
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+

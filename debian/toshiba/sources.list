@@ -1,0 +1,37 @@
+# See sources.list(5) for more information, especialy
+# Remember that you can only use http, ftp or file URIs
+# CDROMs are managed through the apt-cdrom tool.
+
+# Security updates for Testing
+#deb http://gargle:9999/security stable/updates main contrib non-free
+
+# Security updates for Stable
+deb http://gargle:9999/security stable/updates main contrib non-free
+
+# Main Debian Unstable archive
+deb http://gargle:9999/main unstable main non-free contrib
+deb http://gargle:9999/debian-non-US sarge/non-US main contrib non-free
+#deb-src http://gargle:9999/main unstable main non-free contrib
+#deb-src http://gargle:9999/debian-non-US sarge/non-US main contrib non-free
+
+# Main Debian Testing Archive
+# testing/non-US not in use!!!
+deb http://gargle:9999/main testing main non-free contrib
+#deb http://gargle:9999/debian-non-US testing/non-US main contrib non-free
+#deb-src http://gargle:9999/main testing main non-free contrib
+#deb-src http://gargle:9999/debian-non-US testing/non-US main contrib non-free
+
+# Main Debian Stable Archive
+deb http://gargle:9999/main stable main non-free contrib
+deb http://gargle:9999/debian-non-US stable/non-US main contrib non-free
+#deb-src http://gargle:9999/main stable main non-free contrib
+#deb-src http://gargle:9999/debian-non-US stable/non-US main contrib non-free
+
+# Debian experimental archive
+deb http://gargle:9999/main project/experimental/main/binary-$(ARCH)/
+#deb http://gargle:9999/project project/experimental main non-free contrib
+#deb-src http://gargle:9999/project project/experimental main non-free contrib
+
+# bommanews
+deb http://gargle:9999/bommanews ./
+

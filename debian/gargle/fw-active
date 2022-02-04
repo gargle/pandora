@@ -1,0 +1,44 @@
+#!/bin/sh
+
+set -x
+
+iptables --flush
+iptables -t nat --flush
+
+iptables --policy INPUT DROP
+iptables --policy OUTPUT ACCEPT
+iptables --policy FORWARD ACCEPT 
+
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -i eth0 -j ACCEPT
+
+export CHROMECAST_IP=xx.xx.xx.xx # Adjust to the Chromecast IP in your local network
+iptables -A INPUT -s ${CHROMECAST_IP}/32 -p udp -m multiport --sports 32768:61000 -m multiport --dports 32768:61000 -m comment --comment "Allow Chromecast UDP data (inbound)" -j ACCEPT
+iptables -A INPUT -d 239.255.255.250/32 -p udp --dport 1900 -m comment --comment "Allow Chromecast SSDP" -j ACCEPT
+iptables -A OUTPUT -d ${CHROMECAST_IP}/32 -p udp -m multiport --sports 32768:61000 -m multiport --dports 32768:61000 -m comment --comment "Allow Chromecast UDP data (outbound)" -j ACCEPT
+iptables -A OUTPUT -d ${CHROMECAST_IP}/32 -p tcp -m multiport --dports 8008:8009 -m comment --comment "Allow Chromecast TCP data (outbound)" -j ACCEPT
+iptables -A OUTPUT -d 239.255.255.250/32 -p udp --dport 1900 -m comment --comment "Allow Chromecast SSDP" -j ACCEPT
+
+iptables -t mangle -A PREROUTING -d 239.255.255.250 -j TTL --ttl-inc 1
+iptables -t mangle -A PREROUTING -d 224.0.0.251 -j TTL --ttl-inc 1
+
+iptables -A INPUT -i wlan0 -m mac --mac-source xx:xx:xx:xx:xx:xx -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A INPUT -p udp -m udp --sport 123 --dport 123 -j ACCEPT
+iptables -A INPUT -s 195.130.130.129 -p udp -m udp --sport 53 --dport 1025:65535 -j ACCEPT 
+iptables -A INPUT -s 195.130.130.1 -p udp -m udp --sport 53 --dport 1025:65535 -j ACCEPT 
+iptables -A INPUT -s 195.130.131.1 -p udp -m udp --sport 53 --dport 1025:65535 -j ACCEPT 
+iptables -A INPUT -p tcp -m tcp --sport 67 --dport 68 -j ACCEPT
+iptables -A INPUT -p udp -m udp --sport 67 --dport 68 -j ACCEPT 
+iptables -A INPUT -i eth1 -p tcp -j REJECT --reject-with icmp-port-unreachable 
+iptables -A INPUT -i eth1 -p udp -j REJECT --reject-with icmp-port-unreachable
+iptables -A INPUT -i wlan0 -j LOG --log-prefix '** WIFI ** ' 
+iptables -A INPUT -i wlan0 -j DROP
+
+iptables -t nat -P PREROUTING ACCEPT
+iptables -t nat -P POSTROUTING ACCEPT
+iptables -t nat -A POSTROUTING -s 192.168.1.0/255.255.255.0 -o eth1 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 10.0.1.0/255.255.255.0 -o eth1 -j MASQUERADE
+

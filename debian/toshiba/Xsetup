@@ -1,0 +1,5 @@
+if [ -x /usr/bin/numlockx ]; then
+    /usr/bin/numlockx on
+fi
+
+/usr/X11R6/bin/xli -onroot /usr/share/WindowMaker/Backgrounds/debian_wallpaper_toshiba_03.jpg

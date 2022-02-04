@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Gargle's Debian Info</title>
+<style type="text/css">
+h2      { border-top: 2px solid black; margin-top: 3em; }
+p.valid { border-top: 2px solid black; margin-top: 3em; padding-top: 1em; 
+          text-align: right }
+</style>
+</head>
+<body>
+
+<h1>Linux gargle 2.6.15-1-k7 #2 Thu Feb 2 18:48:35 UTC 2006 i686 GNU/Linux</h1>
+
+<p style="font-style: italic">
+Much of what's written here is as I recall it. I've installed the GNUstep 
+Live CD on the 25th of March 2004 and at the time of writing memory is getting
+blurred.
+</p>
+
+<p style="font-style: italic; text-align: right">
+gargle, 15th of February 2006
+</p>
+
+
+
+<h1>GNUstep Live CD</h1>
+<p>
+Get it here:
+<a href="http://www.linuks.mine.nu/gnustep/">GNUstep Live CD</a>
+</p>
+
+<h2>Kernel 2.6.15-1-k7</h2>
+<p>
+The <a href="gargle/lspci">devices</a> on gargle.<br/>
+<br/>
+A <a href="gargle/debian.png">screenshot</a> as proof!<br/>
+</p>
+
+
+<h2>xserver-xorg</h2>
+<p>I migrated from xfree86 to xorg on the 9th of september 2005 on my desktop
+gargle and on the 15th of october 2005 on toshiba.</p>
+<p>
+<a href="gargle/xorg.conf">xorg.conf</a> (gargle)<br/>
+</p>
+<p>
+<a href="toshiba/xorg.conf">xorg.conf</a> (toshiba)<br/>
+</p>
+
+<h2>US keyboard</h2>
+
+
+
+<h3>/usr/share/X11/xkb/symbols/us</h3>
+<p>insert the contents of <a href="gargle/altgr-weur">altgr-weur</a> after the
+  definition of altgr-intl</p>
+
+<h3>/usr/share/X11/xkb/rules/evdev.xml</h3>
+<p>insert the contents of <a href="gargle/altgr-weur_evdev.xml">altgr-weur_evdev.xml</a> after the definition of altgr-intl</p>
+
+<h3>/usr/share/X11/xkb/rules/xorg.lst</h3>
+<p>insert the following line after the definition of altgr-intl</p>
+<pre>
+altgr-weur us: English (Western European AltGr dead keys)
+</pre>
+
+<h3>/etc/default/keyboard</h3>
+<pre>
+...
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT="altgr-weur"
+#XKBOPTIONS="compose:lwin,ctrl:nocaps"
+XKBOPTIONS="altwin:meta-win,compose:rctrl,ctrl:nocaps"
+
+BACKSPACE="guess"
+...
+</pre>
+
+<p>run setupcon as root to update the console keyboard. Make sure
+/etc/default/keyboard has a new timestemp or setupcon won't do anything.<p>
+
+
+
+<h3>Ducky One 2 SF</h3>
+<pre>
+Left-WINDOWS arrow-down 5 seconds to reset keyboard
+FN ALT K 5 seconds FN Left-WINDOWS ESC to switch FN and Left-WINDOWS key
+FN ALT 2 to switch to customisation 2
+FN ALT TAB 5 seconds ESC FN ESC FN ALT FN ALT TAB 1 second to make ESC do ` and ~
+FN ALT TAB 5 seconds FN ESC ESC FN ALT FN ALT TAB 1 second to make FN ESC do ESC
+</pre>
+
+<h3>Maximize a windows on the left or right part of the screen</h3>
+<pre>
+gargle@msi:~$ grep Mod4 GNUstep/Defaults/WindowMaker 
+LHMaximizeKey = "Mod4+Left";
+RHMaximizeKey = "Mod4+Right";
+</pre>
+
+<h3>XTerm</h3>
+<p>
+As root, and set uxterm as x-terminal-emulator:
+</p>
+<pre>update-alternatives --config x-terminal-emulator</pre>
+<p>
+Menu entry's for xterm <a href="gargle/xterm">/etc/menu/xterm</a>
+</p>
+<h4>/etc/X11/app-defaults/UXTerm</h4>
+<p>
+Change the following lines in /etc/X11/app-defaults/UXTerm: 
+</p>
+<pre>
+!*VT100.font:
+-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
+*VT100.font:    -misc-fixed-medium-r-normal--14-130-75-75-c-70-iso10646-1
+</pre>
+<pre>
+vi ~/.Xresources
+XTerm*renderFont: true
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceSize: 10
+
+UXTerm*renderFont: true
+UXTerm*faceName: DejaVu Sans Mono
+UXTerm*faceSize: 10
+</pre>
+
+
+<pre>
+xrdb -merge ~/.Xresources
+xrdb -q
+</pre>
+
+<p>and set the default font in emacs:</p>
+
+<pre>
+'(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 98 :width normal)))))
+</pre>
+
+
+<h4>/etc/X11/app-defaults/XTerm-color</h4>
+<p>
+Change the following lines in /etc/X11/app-defaults/XTerm-color: 
+</p>
+<pre>
+! - OR -
+! Uncomment this for black text on a "white" background.
+*VT100*foreground: black
+!*VT100*background: gray90
+*VT100*background: white
+</pre>
+
+<h3>Console</h3>
+<p>
+As root:
+</p>
+<pre>install-keymap be2-latin1</pre>
+
+<h3>/etc/console</h3>
+<p>
+<a href="gargle/boottime.kmap.gz">boottime.kmap.gz</a> with capslock switched to ctrl.
+</p>
+
+<h2>Attention, we're on systemd now</h2>
+
+<h3>/etc/tmpfiles.d/console-kit.conf</h3>
+<p>
+D /var/log/ConsoleKit/ 0755 root root
+</p>
+
+<h2>/etc/inittab</h2>
+<p>
+Change default start up runlevel from 3 to 5 in /etc/inittab:
+</p>
+
+<pre>
+...
+# The default runlevel.
+id:5:initdefault:
+...
+</pre>
+
+
+<h2>/etc/rc3.d</h2>
+<p>
+Remove S99xxxx (please look up) to stop GNUstep X interface to start up on boot
+</p>
+
+
+<h2>/etc/modules</h2>
+<pre>
+...
+apm power_off=1
+...
+</pre>
+
+<h4>alsa</h4>
+<p>
+    Keep snd_usb_audio from beeing loaded as first soundcard 
+    add options snd_usb_audio index=-2 to /etc/modprobe.d/alsa-base.conf
+</p>
+
+<h2>hda</h2>
+<pre>
+apt-get install hdparm
+</pre>
+<p>
+<a href="gargle/hdparm.conf">/etc/hdparm.conf</a>
+</p>
+
+<h2>cdrom's</h2>
+<pre>/dev/scd0</pre>
+<p>and
+</p>
+<pre>/dev/hdd</pre>
+<p>
+are in use on gargle.
+</p>
+
+<h3>/mnt</h3>
+<pre>
+/mnt/auto/cdrom:
+/mnt/cdrom:
+</pre>
+
+<h3>/dev/scd0</h3>
+<pre>
+lrwxrwxrwx  1 root root 9 Apr  6  2004 /dev/cdrom -> /dev/scd0
+</pre>
+
+<h3>/etc/lilo.conf</h3>
+<pre>
+append="hdd=ide-cd noapic acpi=off apm=power-off"
+</pre>
+
+<h3>/etc/fstab</h3>
+<pre>
+/dev/hda2        / ext3          defaults        0       1
+/dev/hda3        none    swap    sw      0       0
+proc    /proc  proc  defaults  0  0
+/dev/fd0  /mnt/auto/floppy  auto  defaults,user,noauto,showexec,umask=022  0  0
+/dev/cdrom      /mnt/auto/cdrom  auto  defaults,ro,user,noexec,noauto  0  0
+/dev/hdd        /mnt/cdrom  auto  defaults,ro,user,noexec,noauto  0  0
+none   /sys   sysfs   defaults   0  0
+</pre>
+
+<h2>/etc/hotplug/blacklist</h2>
+<pre>
+# not loading on boot. Removed from sight :)
+
+rtc
+pciehp
+shpchp
+</pre>
+
+
+<h2>nvidia</h2>
+<pre>
+gargle@emachine:~$ dpkg -l | grep nvidia
+ii  glx-alternative-nvidia                 0.4.1
+i386         allows the selection of NVIDIA as GLX provider
+ii  libgl1-nvidia-legacy-304xx-glx:i386    304.121-1
+i386         NVIDIA binary OpenGL libraries (304xx legacy version)
+ii  nvidia-installer-cleanup               20131102+1
+i386         cleanup after driver installation with the nvidia-installer
+ii  nvidia-kernel-common                   20131102+1
+i386         NVIDIA binary kernel module support files
+ii  nvidia-legacy-304xx-alternative        304.121-1
+i386         allows the selection of NVIDIA as GLX provider
+ii  nvidia-legacy-304xx-driver             304.121-1
+i386         NVIDIA metapackage (304xx legacy version)
+ii  nvidia-legacy-304xx-kernel-dkms        304.121-1
+i386         NVIDIA binary kernel module DKMS source (304xx legacy version)
+ii  nvidia-settings-legacy-304xx           304.116-1
+i386         tool for configuring the NVIDIA graphics driver (304xx legacy
+version)
+ii  nvidia-support                         20131102+1
+i386         NVIDIA binary graphics driver support files
+ii  xserver-xorg-video-nvidia-legacy-304xx 304.121-1
+i386         NVIDIA binary Xorg driver (304xx legacy version)
+</pre>
+
+<h2>xdm</h2>
+<pre>
+apt-get install xdm xli
+</pre>
+
+
+<h3>xdm boot screen</h3>
+
+<p>
+<a href="gargle/Xsetup">/etc/X11/xdm/Xsetup</a> (gargle)<br/>
+<a href="gargle/Xservers">/etc/X11/xdm/Xservers</a> (gargle)<br/>
+<a href="gargle/Xresources">/etc/X11/xdm/Xresources</a> (gargle)<br/>
+<a href="gargle/xdm-config">/etc/X11/xdm/xdm-config</a> (gargle)
+</p>
+
+<h3>/etc/X11/xdm/Xaccess</h3>
+<p>
+Uncomment the following line:
+</p>
+<pre>
+*                                       #any host can get a login window
+</pre>
+
+<h3>/etc/X11/xdm/xdm-config</h3>
+<p>
+Comment out the following line:
+</p>
+<pre>
+!DisplayManager.requestPort:    0
+</pre>
+
+<h3>/etc/X11/XF86Config</h3>
+<p>
+Change in /etc/X11/XF86Config or /etc/X11/XF86Config-4:
+</p>
+<pre>
+        FontPath     "unix/:7100"
+</pre>
+
+
+
+<h2>Debian Menu</h2>
+<h3>GNUstep/Defaults/WMRootMenu</h3>
+<pre>
+( 
+    Applications,
+    (Debian, OPEN_MENU, "/usr/share/WindowMaker/menu.hook"),
+    (Xterms,
+        ("XTerm gold", EXEC, "uxterm -bg gold -fg black"),
+        ("XTerm green", EXEC, "uxterm -bg green -fg black"),
+        ("XTerm red", EXEC, "uxterm -bg red -fg black"),
+        ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black")
+    ),
+    (XTerm, EXEC, "uxterm -bg white -fg black")
+)
+</pre>
+
+
+
+<h2>X trivia</h2>
+
+<h3>numlockx</h3>
+<p>
+numlockx  is a program that is able to control 
+the NumLock LED and status of your keyboard.
+Running dpkg-reconfigure numlockx to start numlockx
+automatically when X starts.
+</p>
+<pre>
+apt-get install numlockx
+</pre>
+
+<p>
+In
+</p>
+<pre>/etc/X11/xdm/Xsetup</pre>
+
+<pre>
+    if [ -x /usr/bin/numlockx ]; then
+            /usr/bin/numlockx on
+    fi
+</pre>
+
+<h3>Xdm Background</h3>
+<p style="font-style: italic">
+On our toshiba laptop we use debian_wallpaper_toshiba_03.jpg, a 800x600 
+rendering of debian_wallpaper_03.jpg of gargle.
+</p>
+
+<pre>
+ apt-get install xli
+</pre>
+
+<p>
+In
+</p>
+<pre>/etc/X11/xdm/Xsetup</pre>
+
+<pre>
+/usr/X11R6/bin/xli -onroot /usr/share/WindowMaker/Backgrounds/debian_wallpaper_03.jpg
+</pre>
+
+
+<h2>networking</h2>
+
+<h3>/etc/udev</h3>
+<p>
+    This is following is needed because the new 2.6.15 kernel
+    uses udev to dynamically allocate devices.
+</p>
+
+<h4>installation</h4>
+<p>
+    set permission to 644 'chmod 644 network.rules' and symlink 
+    'ln -s network.rules rules.d/010_network.rules'
+</p>
+<p>
+<a href="gargle/network.rules">/etc/udev/network.rules</a>
+</p>
+
+<h3>interfaces</h3>
+<p>
+<a href="gargle/interfaces">/etc/network/interfaces</a>
+</p>
+
+
+<h3>firewall</h3>
+<p>
+<a href="gargle/fw-active">/root/fw-active.sh</a>
+</p>
+<p>
+<a href="gargle/smcroute">/etc/smcroute/startup.sh</a>
+</p>
+<p>
+<a href="gargle/fw-inactive">/root/fw-inactive.sh</a>
+</p>
+
+
+<h3>hostapd</h3>
+
+<h4>installation</h4>
+<pre>
+apt-get install hostapd
+</pre>
+
+<p>
+<a href="gargle/hostapd">/etc/default/hostapd</a>
+</p>
+<p>
+<a href="gargle/hostapd.conf">/etc/hostapd.conf</a>
+</p>
+
+
+<h3>dnsmasq</h3>
+
+<h4>installation</h4>
+<pre>
+apt-get install dnsmasq
+</pre>
+
+<p>
+<a href="gargle/dnsmasq.conf">/etc/dnsmasq.conf</a>
+</p>
+
+
+<h3>dhcpd</h3>
+
+<h4>installation</h4>
+<pre>
+apt-get install dhcpd
+</pre>
+
+<p>
+<a href="gargle/dhcpd.conf">/etc/dhcpd.conf</a>
+</p>
+<p>
+<a href="gargle/dhcp">/etc/defaults/dhcp</a>
+</p>
+
+
+
+<h2>apt</h2>
+
+<h3>apt-proxy</h3>
+<pre>
+apt-get install apt-proxy
+</pre>
+
+<h3>apt-proxy</h3>
+<p>
+<a href="gargle/apt-proxy-v2.conf">/etc/apt-conf/apt-proxy-v2.conf</a></p>
+
+<p>
+<a href="gargle/sources.list">/etc/apt/sources.list</a> (gargle)<br/>
+</p>
+
+<p>
+<a href="toshiba/sources.list">/etc/apt/sources.list</a> (toshiba)<br/>
+</p>
+
+<h3>going to testing</h3>
+<p>
+<a href="gargle/preferences">/etc/apt/preferences</a>
+</p>
+
+<h2>[Firmware Bug]: TSC_DEADLINE disabled due to Errata; please update
+microcode to version: 0x52 (or later)</h2>
+
+<p>apt-get install intel-microcode</p>
+
+<h2>eid</h2>
+
+<h3>eid-viewer</h3>
+
+<a href="http://asgardian.be/WordPress/2017/08/06/eidviewer-on-debian-9-stretch/">documentation</a>
+
+<p>These two files are needed: libssl1.0.0_1.0.1t-1+deb8u7_amd64.deb and
+eid-viewer_4.3.7v4.3.7-0deb8-1_amd64.deb.</p> 
+
+<p>Use vi to remove libproxy1 from DEBIAN/control!</p>
+
+<pre>
+rm -rf tmp
+cd tmp
+dpkg-deb -X eid-viewer_4.3.7v4.3.7-0deb8-1_amd64.deb .
+dpkg-deb -e eid-viewer_4.3.7v4.3.7-0deb8-1_amd64.deb ./DEBIAN
+vi DEBIAN/control
+cd ..
+dpkg-deb -b ./tmp eid-viewer_4.3.7v4.3.7-0deb8-1_amd64.deb
+</p>
+
+<p>Install the new package with dpkg -i</p>
+
+
+
+<h2>WWW</h2>
+
+<h3>apache2</h3>
+<pre>
+apt-get install apache2-mpm-prefork apache2-doc apache2-common
+</pre>
+
+<h3>php4</h3>
+<pre>
+apt-get install libapache2-mod-php4 php4-gd php4-imagick php4-mysql
+apt-get install php4
+</pre>
+
+
+
+<h2>Chromecast</h2>
+<p>enable chrome://flags/#load-media-router-component-extension</p>
+
+<h2>Webcam</h2>
+
+<h3>Sound</h3>
+<p>
+<a href="gargle/sound">/etc/modprobe.d/sound</a>
+</p>
+
+<h3>Recording</h3>
+<p>avconv instead of ffmpeg</p>
+<pre>
+mencoder tv:// -tv driver=v4l:width=640:height=480:device=/dev/video0:forceaudio:adevice=/dev/dsp1 -ovc lavc -oac mp3lame -lameopts cbr:br=64:mode=3 -o out.avi
+</pre>
+<h3>Streaming</h3>
+<pre>
+vlc v4l2:///dev/video0:size=640x480:channel=1:norm=ntsc:fps=12 ":sout=#transcode{vcodec=DIV3,acodec=mp3}:std{access=mmsh,mux=asfh,url=127.0.0.1:8080}" -vv 
+</pre>
+
+
+<p class="valid">
+<a href="http://validator.w3.org/check?uri=http://users.pandora.be/gargle/debian/index.html">
+  <img style="border:0;width:88px;height:31px"
+       src="valid-xhtml10.png"
+       alt="Valid xhtml!"/>
+</a>
+<a href="http://jigsaw.w3.org/css-validator/validator?uri=http://users.pandora.be/gargle/debian/index.html">
+  <img style="border:0;width:88px;height:31px"
+       src="vcss.png" 
+       alt="Valid CSS!"/>
+</a>
+</p>
+
+</body>
+</html>
