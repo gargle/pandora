@@ -40,7 +40,7 @@ initial-frame-alist))))
  '(cperl-indent-parens-as-block t)
  '(cperl-tab-always-indent t)
  '(org-agenda-files '("/mnt/c/git/gargle/gargle.org"))
- '(package-selected-packages '(basic-mode mastodon org-jira cobol-mode ## chess)))
+ '(package-selected-packages '(mastodon basic-mode org-jira cobol-mode ## chess)))
  
 ;; Insert spaces instead of tabs
 (setq-default indent-tabs-mode nil)
@@ -114,8 +114,14 @@ initial-frame-alist))))
    (perl . t)))
 
 ;############################################################################
+;# mastodon                                                                 #
+;############################################################################
+
+(setq mastodon-instance-url "https://fosstodon.org"
+      mastodon-active-user "laenenj")
+
+;############################################################################
 ;# bpost stuff                                                              #
 ;############################################################################
 
 (setq jiralib-url "https://bpostcentraljira.atlassian.net")
-
