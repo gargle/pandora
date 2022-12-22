@@ -118,7 +118,7 @@ initial-frame-alist))))
 ;############################################################################
 
 (setq mastodon-instance-url "https://fosstodon.org"
-      mastodon-active-user "laenenj")
+      mastodon-active-user "laejoh")
 
 ;############################################################################
 ;# bpost stuff                                                              #
