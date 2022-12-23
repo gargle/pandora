@@ -211,3 +211,20 @@ escape "^Jj"
 
 # error message about AT SPI when starting up emacs?
 apt-get install at-spi2-core
+
+# emacs facebook messenger and discord
+sudo apt-get install bitlbee-plugin-facebook
+sudo apt-get install purple-discord
+sudo apt-get install bitlbee-libpurple
+
+log in with erc, localhost, userid gargle.  register <pw>
+
+for facebook, see https://wiki.bitlbee.org/HowtoFacebookMQTT
+account add facebook johan.laenen+facebook@gmail.com <pw>
+account facebook on
+
+for discord, see https://github.com/EionRobb/purple-discord
+account add eionrobb-discord johan.laenen+discord@gmail.com <pw>
+account eionrobb-discord set token <token>
+account eionrobb-discord on
+
