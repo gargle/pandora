@@ -88,6 +88,7 @@ UXTerm*renderFont: true
 UXTerm*faceName: DejaVu Sans Mono
 UXTerm*faceSize: 10
 
+xterm*metaSendsEscape: true
 
 
 xrdb -merge ~/.Xresources
