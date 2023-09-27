@@ -37,7 +37,8 @@ gargle@msi:~/eeepc$ cat /etc/default/locale
 LANG="en_GB.UTF-8"
 LANGUAGE="en_GB:en"
 
-
+# BEWARE, the alt key doesn't work in xterm with UTF-8 unless we add
+# xterm*metaSendsEscape: true in .Xresources
 
 # instead of modifying /etc/sudoers
 /usr/sbin/usermod -a -G sudo gargle
