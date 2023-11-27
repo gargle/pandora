@@ -5,6 +5,28 @@ make it 16G
 
 
 
+networking, disable ipv6
+root@msi:/home/gargle/whoami# tail -n 3 /etc/sysctl.conf
+
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+
+root@msi:/home/gargle/whoami# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth0
+iface eth0 inet dhcp
+
+
+
 see https://www.choam.eu/altgr-intl/ or http://users.telenet.be/gargle/debian/ on how to configure altgr-weur
 
 gargle@msi:~/eeepc$ cat /etc/default/keyboard 
