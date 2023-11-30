@@ -8,8 +8,8 @@ make it 16G
 networking, disable ipv6
 root@msi:/home/gargle/whoami# tail -n 3 /etc/sysctl.conf
 
-net.ipv6.conf.all.disable_ipv6=1
-net.ipv6.conf.default.disable_ipv6=1
+# enable privacy extentions (https://tldp.org/HOWTO/Linux+IPv6-HOWTO/ch06s05.html)
+net.ipv6.conf.eth0.use_tempaddr=2
 
 root@msi:/home/gargle/whoami# cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
