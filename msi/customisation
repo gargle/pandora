@@ -230,6 +230,7 @@ escape "^Jj"
 # maximise a window on the left or on the right with windows key <left arrow>
 # and windows key<right arrow>, maximise full screen with windows key <up
 # arrow>
+# MaximizeKey used to be "Control+Home"
   LHMaximizeKey = "Mod4+Left";
   RHMaximizeKey = "Mod4+Right";
   MaximizeKey = "Mod4+Up";
