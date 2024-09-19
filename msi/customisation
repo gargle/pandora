@@ -226,10 +226,13 @@ for i in `seq 1 10`; do printf "wget https://archive.org/download/Mundofonias201
 termcapinfo xterm* ti@:te@ #https://unix.stackexchange.com/questions/18006/can-mouse-wheel-scrolling-work-in-a-screen-session
 escape "^Jj"
 
-# maximize a window on the left or on the right with AltGR <left arrow> or
-# AltGR <right arrow>
-  LHMaximizeKey = "Mod5+Left";
-  RHMaximizeKey = "Mod5+Right";
+# ~/GNUstep/Defaults/WindowMaker
+# maximise a window on the left or on the right with windows key <left arrow>
+# and windows key<right arrow>, maximise full screen with windows key <up
+# arrow>
+  LHMaximizeKey = "Mod4+Left";
+  RHMaximizeKey = "Mod4+Right";
+  MaximizeKey = "Mod4+Up";
 
 
 
