@@ -525,6 +525,14 @@ dpkg-deb -b ./tmp eid-viewer_4.3.7v4.3.7-0deb8-1_amd64.deb
 
 <h2>WWW</h2>
 
+<h3>replace firefox with librewolf</h3>
+
+<pre>
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable librewolf
+sudo apt update && sudo apt install librewolf -y
+</pre>
+
 <h3>apache2</h3>
 <pre>
 apt-get install apache2-mpm-prefork apache2-doc apache2-common

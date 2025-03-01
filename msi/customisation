@@ -256,3 +256,11 @@ account add eionrobb-discord johan.laenen+discord@gmail.com <pw>
 account eionrobb-discord set token <token>
 account eionrobb-discord on
 
+
+
+# replace firefox with librewolf
+
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable librewolf
+sudo apt update && sudo apt install librewolf -y
+
