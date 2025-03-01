@@ -172,6 +172,37 @@ dpkg -i eid-viewer_4.3.7v4.3.7-0deb8-1_amd64.deb
 
 
 
+chromium eid
+
+use about-eid-mw to find the file /usr/lib/x86_64-linux-gnu/libbeidpkcs11.so.0
+modutil -dbdir sql:.pki/nssdb -add "Belgium eID" -libfile /usr/lib/x86_64-linux-gnu/libbeidpkcs11.so.0
+
+modutil -dbdir sql:.pki/nssdb/ -list
+
+Listing of PKCS #11 Modules
+-----------------------------------------------------------
+  1. NSS Internal PKCS #11 Module
+           uri: pkcs11:library-manufacturer=Mozilla%20Foundation;library-description=NSS%20Internal%20Crypto%20Services;library-version=3.107
+         slots: 2 slots attached
+        status: loaded
+
+         slot: NSS Internal Cryptographic Services
+        token: NSS Generic Crypto Services
+          uri: pkcs11:token=NSS%20Generic%20Crypto%20Services;manufacturer=Mozilla%20Foundation;serial=0000000000000000;model=NSS%203
+
+         slot: NSS User Private Key and Certificate Services
+        token: NSS Certificate DB
+          uri: pkcs11:token=NSS%20Certificate%20DB;manufacturer=Mozilla%20Foundation;serial=0000000000000000;model=NSS%203
+
+  2. Belgium eID
+        library name: /usr/lib/x86_64-linux-gnu/libbeidpkcs11.so.0
+           uri: pkcs11:library-manufacturer=Belgium%20Government;library-description=Belgium%20eID%20PKCS%2311%20interface%20v2;library-version=5.1
+         slots: There are no slots attached to this module
+        status: loaded
+-----------------------------------------------------------
+
+
+
 GNUstep/Defaults/WMRootMenu
 
 (
