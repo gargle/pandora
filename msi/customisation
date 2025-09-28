@@ -27,6 +27,17 @@ iface eth0 inet dhcp
 
 
 
+/etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+
+gargle@msi:~$ wpa_passphrase gargle 0PLW4NP7z5jTNQqI
+network={
+        ssid="gargle"
+        #psk="0PLW4NP7z5jTNQqI"
+        psk=7a8bdd3eb830d5f99dfe226cb5eba9d857cb687bc46954ab82a8e000be172ae0
+}
+
+
+
 see https://www.choam.eu/altgr-intl/ or http://users.telenet.be/gargle/debian/ on how to configure altgr-weur
 
 gargle@msi:~/eeepc$ cat /etc/default/keyboard 
