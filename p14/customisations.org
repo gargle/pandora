@@ -305,5 +305,16 @@ root@p14:~# cat /usr/local/bin/custom-startup.sh
 # turn mic mute LED off
 echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
 
+* brightness
+Control the brightness of the screen by chaning the value in /sys/class/backlight/amdgpu_bl0/brightness.
+
+gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/brightness
+33
+
+gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
+255
+
+root@p14:~# echo 33 > /sys/class/backlight/amdgpu_bl0/brightness
+
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
