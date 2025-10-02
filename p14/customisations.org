@@ -96,6 +96,8 @@ Name=wlp2s0
 [Network]
 DHCP=yes
 
+root@p14:~# systemctl disable --now systemd-networkd-wait-online.service
+
 root@p14:~# systemctl enable --now wpa_supplicant@wlp2s0.service
 
 gargle@p14:~$ systemctl status wpa_supplicant@wlp2s0.service
