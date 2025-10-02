@@ -133,7 +133,7 @@ Selected interface 'wlp2s0'
 OK
 
 * firewall
-Just make sure IPV6=yes is on.
+We go with the defaults, just make sure IPV6=yes is on.
 
 root@p14:~# ufw status verbose
 Status: active
