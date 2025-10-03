@@ -41,6 +41,7 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 * partitions
 We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by means of zam.
 
+#+BEGIN_example
 gargle@p14:~$ lsblk
 NAME                   MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS
 zram0                  253:0    0   6.8G  0 disk  [SWAP]
@@ -51,20 +52,26 @@ nvme0n1                259:0    0 476.9G  0 disk
   └─nvme0n1p3_crypt    254:0    0   475G  0 crypt
     ├─p14--vg-lv--root 254:1    0  59.6G  0 lvm   /
     └─p14--vg-lv--home 254:2    0 415.4G  0 lvm   /home
+#+END_example
 
 * f1-f12 function keys
 We tell the bios that f1-f12 are accessible without fnlock.
 
 * networking
 ** lo and enp1s0f0
+#+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/network/interfaces
 -rw-r--r-- 1 root root 322 Oct  2 16:19 /etc/network/interfaces
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/network/interfaces.d
 total 8.0K
 drwxr-xr-x 2 root root 4.0K Sep 17  2024 .
 drwxr-xr-x 7 root root 4.0K Oct  2 16:19 ..
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -78,34 +85,45 @@ iface lo inet loopback
 # The primary network interface
 allow-hotplug enp1s0f0
 iface enp1s0f0 inet dhcp
+#+END_example
 
 ** wlp2s0
 *** wpa_supplicant
+#+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
 -rw-r--r-- 1 root root 1.3K Oct  2 15:36 /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ head -n 5 /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
         ssid="gargle"
+#+END_example
 
 *** systemd
+#+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/systemd/network/wlp2s0.network
 -rw-r--r-- 1 root root 41 Oct  2 14:46 /etc/systemd/network/wlp2s0.network
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ cat /etc/systemd/network/wlp2s0.network
 [Match]
 Name=wlp2s0
 
 [Network]
 DHCP=yes
+#+END_example
 
+#+BEGIN_example
 root@p14:~# systemctl disable --now systemd-networkd-wait-online.service
-
 root@p14:~# systemctl enable --now wpa_supplicant@wlp2s0.service
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ systemctl status wpa_supplicant@wlp2s0.service
 ● wpa_supplicant@wlp2s0.service - WPA supplicant daemon (interface-specific version)
      Loaded: loaded (/usr/lib/systemd/system/wpa_supplicant@.service; enabled; preset: enabled)
@@ -117,7 +135,9 @@ gargle@p14:~$ systemctl status wpa_supplicant@wlp2s0.service
         CPU: 28ms
      CGroup: /system.slice/system-wpa_supplicant.slice/wpa_supplicant@wlp2s0.service
              └─1466 /usr/sbin/wpa_supplicant -c/etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf -iwlp2s0
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ sudo wpa_cli status
 Selected interface 'wlp2s0'
 bssid=84:16:f9:59:66:5f
@@ -135,20 +155,26 @@ p2p_device_address=12:e1:8e:84:b0:d2
 address=10:e1:8e:84:b0:d2
 uuid=ad074921-c6c5-5b79-a778-af489e4ba534
 ieee80211ac=1
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ sudo wpa_cli reconfigure
 Selected interface 'wlp2s0'
 OK
+#+END_example
 
 * firewall
 We go with the defaults, just make sure IPV6=yes is on.
 
+#+BEGIN_example
 root@p14:~# ufw status verbose
 Status: active
 Logging: on (low)
 Default: deny (incoming), allow (outgoing), disabled (routed)
 New profiles: skip
+#+END_example
 
+#+BEGIN_example
 root@p14:~# systemctl status ufw.service
 ● ufw.service - Uncomplicated firewall
      Loaded: loaded (/usr/lib/systemd/system/ufw.service; enabled; preset: enabled)
@@ -161,7 +187,9 @@ root@p14:~# systemctl status ufw.service
 
 Oct 02 16:28:46 p14 systemd[1]: Starting ufw.service - Uncomplicated firewall...
 Oct 02 16:28:46 p14 systemd[1]: Finished ufw.service - Uncomplicated firewall.
+#+END_example
 
+#+BEGIN_example
 root@p14:~# cat /etc/default/ufw
 # /etc/default/ufw
 #
@@ -210,18 +238,24 @@ IPT_SYSCTL=/etc/ufw/sysctl.conf
 # nf_conntrack_tftp, nf_nat_tftp: TFTP support (server side)
 # nf_conntrack_sane: sane support
 IPT_MODULES=""
+#+END_example
 
+#+BEGIN_example
 root@p14:~# ufw status verbose
 Status: active
 Logging: on (low)
 Default: deny (incoming), allow (outgoing), disabled (routed)
 New profiles: skip
+#+END_example
 
 * swap
 We install zram, use 25% of RAM max and use PRIORITY=100.
 
+#+BEGIN_example
 gargle@p14:~$ sudo apt install zram-tools
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ cat /etc/default/zramswap
 # Compression algorithm selection
 # speed: lz4 > zstd
@@ -245,9 +279,11 @@ SIZE=512
 # for more details. Higher number = higher priority
 # This should probably be higher than hdd/ssd swaps.
 PRIORITY=100
+#+END_example
 
 * keyboard
 
+#+BEGIN_example
 root@p14:~# cat /etc/default/keyboard
 # KEYBOARD CONFIGURATION FILE
 
@@ -260,20 +296,26 @@ XKBVARIANT="altgr-weur"
 XKBOPTIONS="compose:lctrl,ctrl:nocaps"
 
 BACKSPACE="guess"
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~$ sudo dpkg-reconfigure keyboard-configuration
-
 gargle@p14:~$ sudo systemctl restart keyboard-setup.service
+#+END_example
 
+#+BEGIN_example
 root@p14:~# setupcon
-
 root@p14:~# update-initramfs -u
+#+END_example
 
 * background
+#+BEGIN_example
 gargle@p14:~$ ls -haltr /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x1200.jpg
--rw-rw-r-- 1 root root 161K Sep 30 15:10 '/usr/share/WindowMaker/Backgrounds/Don-Quixote 1920x1200.jpg'
+-rw-rw-r-- 1 root root 161K Sep 30 15:10 '/usr/share/WindowMaker/Backgrounds/Don-Quixote 1920x1200.jpg
+#+END_example
 
 * xdm
+#+BEGIN_example
 gargle@p14:~$ cat /etc/X11/xdm/Xsetup
 #!/bin/sh
 #
@@ -282,16 +324,20 @@ gargle@p14:~$ cat /etc/X11/xdm/Xsetup
 /usr/bin/xli -onroot /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x1200.jpg
 
 #xsetroot -solid rgb:8/8/8
+#+END_example
 
 * pcspkr
 We disable the pcspeaker to get rid of the annoying BEEP in xterm and console.
 
+#+BEGIN_example
 root@p14:~# cat /etc/modprobe.d/pcspkr.conf
 blacklist pcspkr
+#+END_example
 
 * led
 We switch of the annoying led on F4 (mic mute LED).
 
+#+BEGIN_example
 root@p14:~# cat /etc/systemd/system/custom-startup.service
 [Unit]
 Description=Custom startup settings (mic mute LED)
@@ -306,23 +352,32 @@ TimeoutStartSec=10
 
 [Install]
 WantedBy=multi-user.target
+#+END_example
 
+#+BEGIN_example
 root@p14:~# cat /usr/local/bin/custom-startup.sh
 #!/bin/sh
 
 # turn mic mute LED off
 echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
+#+END_example
 
 * brightness
 Control the brightness of the screen by chaning the value in /sys/class/backlight/amdgpu_bl0/brightness.
 
+#+BEGIN_example
 gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/brightness
 33
+#+END_example
 
+#+BEGIN_example
 gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
 255
+#+END_example
 
+#+BEGIN_example
 root@p14:~# echo 33 > /sys/class/backlight/amdgpu_bl0/brightness
+#+END_example
 
 * TODO this document
 Make sure that comments in configuration files are shown, because xorg-mode filters out lines starting with #.
