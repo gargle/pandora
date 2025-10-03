@@ -320,6 +320,13 @@ gargle@p14:~$ ls -haltr /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x120
 -rw-rw-r-- 1 root root 161K Sep 30 15:10 '/usr/share/WindowMaker/Backgrounds/Don-Quixote 1920x1200.jpg
 #+END_example
 
+* X
+#+BEGIN_example
+root@p14:~# cat /etc/modules-load.d/amdgpu.conf
+# ensure the amdgpu module loads early, or X won't start
+amdgpu
+#+END_example
+
 * xdm
 #+BEGIN_example
 gargle@p14:~$ cat /etc/X11/xdm/Xsetup
