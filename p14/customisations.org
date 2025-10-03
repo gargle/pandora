@@ -38,6 +38,13 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 # see the sources.list(5) manual.
 #+END_example
 
+* apt
+We need listbugs to know about issues before we install them.
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt install apt-listbugs
+#+END_example
+
 * partitions
 We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by means of zam.
 
