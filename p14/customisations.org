@@ -115,6 +115,19 @@ update_config=1
 
 network={
         ssid="gargle"
+        ...
+#+END_example
+
+*** generate an entry for a new wifi access point
+Add the following output to /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf.
+
+#+BEGIN_example
+gargle@p14:~$ wpa_passphrase name passphrase
+network={
+        ssid="name"
+        #psk="passphrase"
+        psk=03ce7bcb3c54136492ed38abce13dd50341d46392c4d0f71f44c4f418d286dc8
+}
 #+END_example
 
 *** systemd
@@ -393,6 +406,10 @@ root@p14:~# cat /usr/local/bin/custom-startup.sh
 echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
 #+END_example
 
+#+BEGIN_example
+root@p14:~# systemctl enable --now custom-startup.service
+#+END_example
+
 * brightness
 Control the brightness of the screen by chaning the value in /sys/class/backlight/amdgpu_bl0/brightness.
 
@@ -410,11 +427,34 @@ gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
 root@p14:~# echo 33 > /sys/class/backlight/amdgpu_bl0/brightness
 #+END_example
 
+* tmux
+#+BEGIN_example
+gargle@p14:~$ cat .tmux.conf
+unbind C-b
+set-option -g prefix C-j
+bind-key C-j send-prefix
+#+END_example
+
+* windowmaker menu
+#+BEGIN_example
+gargle@p14:~$ cat GNUstep/Defaults/WMRootMenu
+(
+    Applications,
+    (Exit, EXIT),
+    (Debian, OPEN_MENU, "/usr/share/WindowMaker/menu.hook"),
+    (Xterms,
+        ("XTerm gold", EXEC, "uxterm -bg gold -fg black"),
+        ("XTerm green", EXEC, "uxterm -bg green -fg black"),
+        ("XTerm red", EXEC, "uxterm -bg red -fg black"),
+        ("XTerm cyan", EXEC, "uxterm -bg cyan -fg black"),
+        ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black")
+    ),
+    (XTerm, EXEC, "uxterm -bg white -fg black")
+)
+#+END_example
+
 * TODO en_GB.UTF-8
 
-* TODO wpa_passphrase
-
-* TODO activate custom-startup.service in system
 
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
