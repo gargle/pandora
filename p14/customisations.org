@@ -5,12 +5,17 @@
 * debian trixie
 We install debian trixie, stable.
 
+#+BEGIN_example
 gargle@p14:~/pandora$ cat /etc/debian_version
 13.1
+#+END_example
 
+#+BEGIN_example
 root@p14:~# ls /etc/apt/sources.list
 /etc/apt/sources.list
+#+END_example
 
+#+BEGIN_example
 root@p14:~# cat /etc/apt/sources.list
 #deb cdrom:[Debian GNU/Linux 13.1.0 _Trixie_ - Official amd64 NETINST with firmware 20250906-10:22]/ trixie contrib main non-free-firmware
 
@@ -31,6 +36,7 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 # of the installation process.
 # For information about how to configure apt package sources,
 # see the sources.list(5) manual.
+#+END_example
 
 * partitions
 We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by means of zam.
