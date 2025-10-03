@@ -379,6 +379,12 @@ gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
 root@p14:~# echo 33 > /sys/class/backlight/amdgpu_bl0/brightness
 #+END_example
 
+* TODO en_GB.UTF-8
+
+* TODO wpa_passphrase
+
+* TODO activate custom-startup.service in system
+
 * TODO this document
 Make sure that comments in configuration files are shown, because xorg-mode filters out lines starting with #.
 
