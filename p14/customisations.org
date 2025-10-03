@@ -428,6 +428,13 @@ gargle@p14:~/pandora$ echo 32 | sudo tee /sys/class/backlight/amdgpu_bl0/brightn
 32
 #+END_example
 
+* cal
+cal makes part of bsdmainutils.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ sudo apt install bsdmainutils
+#+END_example
+
 * tmux
 #+BEGIN_example
 gargle@p14:~$ cat .tmux.conf
