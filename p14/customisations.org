@@ -118,8 +118,14 @@ Name=wlp2s0
 DHCP=yes
 #+END_example
 
+The investigation is ongoing for systemd-networkd-wait-online.service!  For now, it is on.
+
 #+BEGIN_example
 root@p14:~# systemctl disable --now systemd-networkd-wait-online.service
+root@p14:~# systemctl enable --now systemd-networkd-wait-online.service
+#+END_example
+
+#+BEGIN_example
 root@p14:~# systemctl enable --now wpa_supplicant@wlp2s0.service
 #+END_example
 
