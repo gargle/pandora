@@ -415,7 +415,7 @@ Control the brightness of the screen by chaning the value in /sys/class/backligh
 
 #+BEGIN_example
 gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/brightness
-33
+32
 #+END_example
 
 #+BEGIN_example
@@ -424,7 +424,8 @@ gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
 #+END_example
 
 #+BEGIN_example
-root@p14:~# echo 33 > /sys/class/backlight/amdgpu_bl0/brightness
+gargle@p14:~/pandora$ echo 32 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+32
 #+END_example
 
 * tmux
