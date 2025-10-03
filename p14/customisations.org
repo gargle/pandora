@@ -391,8 +391,5 @@ root@p14:~# echo 33 > /sys/class/backlight/amdgpu_bl0/brightness
 
 * TODO activate custom-startup.service in system
 
-* TODO this document
-Make sure that comments in configuration files are shown, because xorg-mode filters out lines starting with #.
-
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
