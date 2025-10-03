@@ -321,6 +321,17 @@ root@p14:~# setupcon
 root@p14:~# update-initramfs -u
 #+END_example
 
+* editor
+We go for vim.basic instead of nano
+
+#+BEGIN_EXAMPLE
+gargle@p14:~$ sudo update-alternatives --config editor
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+gargle@p14:~$ sudo apt remove nano --purge
+#+END_EXAMPLE
+
 * background
 #+BEGIN_example
 gargle@p14:~$ ls -haltr /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x1200.jpg
