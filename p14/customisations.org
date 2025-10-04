@@ -189,29 +189,42 @@ Selected interface 'wlp2s0'
 OK
 #+END_example
 
-** dns
-We use the cloudfare dns servers instead of our own.
+** dnsmasq
+We use the cloudfare dns servers instead of our own, but we want to fall back on our own router at home
+to resolve msi.lan, openwrt.lan, and any other device on our local lan.
 
 #+BEGIN_example
-root@p14:/etc# diff /etc/resolv.conf /etc/resolv.conf.old
-1,5c1,3
-< # Cloudflare DNS (IPv4 + IPv6)
-< nameserver 1.1.1.1
-< nameserver 1.0.0.1
-< nameserver 2606:4700:4700::1111
-< nameserver 2606:4700:4700::1001
----
-> domain lan
-> search lan
-> nameserver 192.168.1.1
+gargle@p14:~$ sudo apt install dnsmasq
 #+END_example
 
+https://datatracker.ietf.org/doc/html/rfc6762#appendix-G mentions /lan/.
+
 #+BEGIN_example
-root@p14:/etc# diff /etc/dhcp/dhclient.conf /etc/dhcp/dhclient.conf.old
-24,26d23
-<
-< supersede domain-name-servers 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001;
-<
+gargle@p14:~/pandora$ diff /etc/dnsmasq.conf /etc/dnsmasq.conf.old
+71,75d70
+< server=/lan/192.168.1.1
+< server=1.1.1.1
+< server=1.0.0.1
+< server=2606:4700:4700::1111
+< server=2606:4700:4700::1001
+#+END_example
+
+Our new /etc/resolve.conf.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ cat /etc/resolv.conf
+domain lan
+search lan
+nameserver 127.0.0.1
+#+END_example
+
+The original /etc/resolv.conf looked like this.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ cat /etc/resolv.conf.old
+domain lan
+search lan
+nameserver 192.168.1.1
 #+END_example
 
 * firewall
