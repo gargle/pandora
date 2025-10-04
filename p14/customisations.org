@@ -218,7 +218,7 @@ gargle@p14:~$ sudo apt install dnsmasq
 https://datatracker.ietf.org/doc/html/rfc6762#appendix-G mentions /lan/.
 
 #+BEGIN_example
-gargle@p14:~/pandora$ cat /etc/dnsmasq.conf
+gargle@p14:~/pandora$ cat /etc/dnsmasq.d/lan.conf
 # forward lan queries to 192.168.1.1
 server=/lan/192.168.1.1
 
