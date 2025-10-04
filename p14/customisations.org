@@ -255,15 +255,17 @@ Our new /etc/resolv.conf.
 
 #+BEGIN_example
 gargle@p14:~/pandora$ cat /etc/resolv.conf
-nameserver 127.0.0.1
+domain lan
+search lan
+nameserver 192.168.1.1
 #+END_example
 
 #+BEGIN_example
 gargle@p14:~/pandora$ ls -haltr /etc/resolv.conf
--rw-r--r-- 1 root root 21 Oct  4 20:47 /etc/resolv.conf
+-rw-r--r-- 1 root root 45 Oct  4 22:08 /etc/resolv.conf
 #+END_example
 
-The original /etc/resolv.conf looked like this.
+The original /etc/resolv.conf also looked like this.
 
 #+BEGIN_example
 gargle@p14:~/pandora$ cat /etc/resolv.conf.old
