@@ -219,16 +219,14 @@ https://datatracker.ietf.org/doc/html/rfc6762#appendix-G mentions /lan/.
 
 #+BEGIN_example
 gargle@p14:~/pandora$ cat /etc/dnsmasq.conf
-# Set the domain for local queries
-domain-needed
-bogus-priv
-local=/lan/
-
-# Specify your local DNS records
-address=/lan/192.168.1.1  # Change this to your desired local address
+# forward lan queries to 192.168.1.1
+server=/lan/192.168.1.1
 
 # Use a separate resolv file
 resolv-file=/etc/dnsmasq-resolv.conf
+
+#log-queries
+#log-facility=/var/log/dnsmasq.log
 #+END_example
 
 Our new /etc/dnsmasq-resolv.conf.
