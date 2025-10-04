@@ -118,8 +118,15 @@ network={
         ...
 #+END_example
 
+*** scan for access points
+#+BEGIN_example
+gargle@p14:~$ sudo iwlist wlp2s0 scan | grep ESSID
+#+END_example
+
 *** generate an entry for a new wifi access point
 Add the following output to /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf.
+
+For a regular access point with a passphrase:
 
 #+BEGIN_example
 gargle@p14:~$ wpa_passphrase name passphrase
@@ -129,6 +136,17 @@ network={
         psk=03ce7bcb3c54136492ed38abce13dd50341d46392c4d0f71f44c4f418d286dc8
 }
 #+END_example
+
+For an access point without a passphrase:
+
+#+BEGIN_example
+network={
+  ssid="name"
+  key_mgmt=NONE
+}
+#+END_example
+
+Next, surf to the portal (192.168.1.1).
 
 *** systemd
 #+BEGIN_example
