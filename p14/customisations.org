@@ -495,6 +495,14 @@ echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
 root@p14:~# systemctl enable --now custom-startup.service
 #+END_example
 
+* temperature
+Check the temperature.  This below means 42 degrees.
+
+#+BEGIN_example
+(.venv) gargle@p14:~/banking$ cat /sys/class/thermal/thermal_zone0/temp
+42000
+#+END_example
+
 * brightness
 Control the brightness of the screen by chaning the value in /sys/class/backlight/amdgpu_bl0/brightness.
 
