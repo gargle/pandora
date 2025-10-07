@@ -288,6 +288,12 @@ search lan
 nameserver 192.168.1.1
 #+END_example
 
+Enable dnsmask.service, if necessary.
+
+#+BEGIN_example
+root@p14:~# systemctl enable --now dnsmask.service
+#+END_example
+
 * firewall
 We go with the defaults, just make sure IPV6=yes is on.
 
