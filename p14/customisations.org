@@ -205,6 +205,20 @@ Selected interface 'wlp2s0'
 OK
 #+END_example
 
+** dhclient
+How to figure out the dns name servers that were returned by dhclient, if you ever wonder why our
+default cloudfare dns servers aren't used when connecting to a new access point without a passphrase.
+
+#+BEGIN_example
+gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|option domain-name-servers"
+  fixed-address 192.168.1.191;
+  option domain-name-servers 192.168.1.1;
+  fixed-address 192.168.128.49;
+  option domain-name-servers 192.168.128.1;
+  fixed-address 192.168.128.49;
+  option domain-name-servers 192.168.128.1;
+#+END_example
+
 ** dnsmasq
 We use the cloudfare dns servers instead of our own, but we want to fall back on our own router at home
 to resolve msi.lan, openwrt.lan, and any other device on our local lan.
@@ -499,7 +513,7 @@ root@p14:~# systemctl enable --now custom-startup.service
 Check the temperature.  This below means 42 degrees.
 
 #+BEGIN_example
-(.venv) gargle@p14:~/banking$ cat /sys/class/thermal/thermal_zone0/temp
+gargle@p14:~/banking$ cat /sys/class/thermal/thermal_zone0/temp
 42000
 #+END_example
 
