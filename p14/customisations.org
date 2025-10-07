@@ -509,6 +509,16 @@ echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
 root@p14:~# systemctl enable --now custom-startup.service
 #+END_example
 
+* battery
+Check the battery.
+
+#+BEGIN_example
+gargle@p14:~$ cat /sys/class/power_supply/BAT0/status
+Discharging
+gargle@p14:~$ cat /sys/class/power_supply/BAT0/capacity
+59
+#+END_example
+
 * temperature
 Check the temperature.  This below means 42 degrees.
 
