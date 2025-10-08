@@ -566,7 +566,7 @@ set-option -g prefix C-j
 bind-key C-j send-prefix
 #+END_example
 
-* windowmaker menu
+* TODO windowmaker menu
 #+BEGIN_example
 gargle@p14:~$ cat GNUstep/Defaults/WMRootMenu
 (
@@ -583,6 +583,9 @@ gargle@p14:~$ cat GNUstep/Defaults/WMRootMenu
     (XTerm, EXEC, "uxterm -bg white -fg black")
 )
 #+END_example
+
+* TODO ~/.Xresource
+* TODO rxvt
 
 * TODO en_GB.UTF-8
 
