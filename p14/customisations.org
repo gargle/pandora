@@ -581,7 +581,8 @@ gargle@p14:~/pandora$ cat ~/GNUstep/Defaults/WMRootMenu
     ("XTerm red", EXEC, "uxterm -bg red -fg black"),
     ("XTerm cyan", EXEC, "uxterm -bg cyan -fg black"),
     ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black"),
-    (XTerm, EXEC, "uxterm -bg white -fg black")
+    ("XTerm 231x63", EXEC, "uxterm -bg white -fg black -geometry 231x63+0+0 -fs 10"),
+    ("XTerm 96x45", EXEC, "uxterm -bg white -fg black -geometry 96x45+0+0")
 )
 #+END_example
 CLOSED: [2025-10-09 Thu 09:46]
