@@ -15,11 +15,18 @@
 ;; set menu-bar-mode off
 (menu-bar-mode -1)
 
+;; set menu-bar-mode off
+(column-number-mode t)
+
 ;; set size of emacs
 (setq initial-frame-alist
-      (cons '(width . 104)
-      (cons '(height . 52)
-initial-frame-alist)))
+      '((left . 670)
+	(top . 0)
+	(width . 96)
+	(height . 46)))
+
+;; set font
+(set-frame-font "DejaVu Sans Mono-15" t t) 
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -38,15 +45,6 @@ initial-frame-alist)))
 
 ;; auto-fill mode on in all major modes
 (setq-default auto-fill-function 'do-auto-fill)
-
-;############################################################################
-;# prog-mode-hook                                                           #
-;############################################################################
-
-;; Show source code as white on black after column 104
-(setq-default whitespace-line-column 104
-              whitespace-style '(face lines-tail))
-(add-hook 'prog-mode-hook #'whitespace-mode)
 
 ;############################################################################
 ;# org-mode                                                                 #
