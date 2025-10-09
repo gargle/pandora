@@ -569,29 +569,47 @@ bind-key C-j send-prefix
 * emacs
 I moved the .emacs file to pandora/p14.
 
-* TODO windowmaker menu
+* windowmaker menu
+CLOSED: [2025-10-09 Thu 09:46]
 #+BEGIN_example
-gargle@p14:~$ cat GNUstep/Defaults/WMRootMenu
+gargle@p14:~/pandora$ cat ~/GNUstep/Defaults/WMRootMenu
 (
     Applications,
     (Exit, EXIT),
     (Debian, OPEN_MENU, "/usr/share/WindowMaker/menu.hook"),
-    (Xterms,
-        ("XTerm gold", EXEC, "uxterm -bg gold -fg black"),
-        ("XTerm green", EXEC, "uxterm -bg green -fg black"),
-        ("XTerm red", EXEC, "uxterm -bg red -fg black"),
-        ("XTerm cyan", EXEC, "uxterm -bg cyan -fg black"),
-        ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black")
-    ),
-    (XTerm, EXEC, "uxterm -bg white -fg black")
+    ("rxvt gold", EXEC, "rxvt -bg gold -fg black"),
+    ("rxvt yellow", EXEC, "rxvt -bg yellow -fg black"),
+    (rxvt, EXEC, "rxvt -bg white -fg black")
 )
 #+END_example
 
-* TODO ~/.Xresources
-* TODO rxvt
+* ~/.Xresources
+
+#+BEGIN_example
+gargle@p14:~$ cat .Xresources
+URxvt*font: xft:Monospace:pixelsize=14.5
+URxvt*scrollBar: false
+
+Emacs.font: -PfEd-DejaVu Sans Mono-regular-normal-normal-*-15-*-*-*-m-0-iso10646-1
+Emacs.verticalScrollBars: right
+
+*VT100*foreground: black
+*VT100*background: white
+
+XTerm*renderFont: true
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceSize: 10
+
+UXTerm*renderFont: true
+UXTerm*faceName: DejaVu Sans Mono
+UXTerm*faceSize: 10
+
+xterm*metaSendsEscape: true
+
+xterm*selectToClipboard: true
+#+END_example
 
 * TODO en_GB.UTF-8
-
 
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
