@@ -19,7 +19,6 @@ root@p14:~# ls /etc/apt/sources.list
 root@p14:~# cat /etc/apt/sources.list
 #deb cdrom:[Debian GNU/Linux 13.1.0 _Trixie_ - Official amd64 NETINST with firmware 20250906-10:22]/ trixie contrib main non-free-firmware
 
-
 deb http://ftp.be.debian.org/debian/ trixie main non-free-firmware
 deb-src http://ftp.be.debian.org/debian/ trixie main non-free-firmware
 
@@ -31,7 +30,6 @@ deb-src http://security.debian.org/debian-security trixie-security main non-free
 deb http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 
-
 # This system was installed using removable media other than
 # CD/DVD/BD (e.g. USB stick, SD card, ISO image file).
 # The matching "deb cdrom" entries were disabled at the end
@@ -42,11 +40,10 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 
 * issues
 ** mayor
-Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, earlier than
-kms.
+Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, earlier than kms.
 
-First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we
-all keep those at the defaults.
+First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
+keep those at the defaults.
 
 ** minor
 Some characters appear with less pixels.
@@ -213,8 +210,8 @@ OK
 #+END_example
 
 ** dhclient
-How to figure out the dns name servers that were returned by dhclient, if you ever wonder why
-our default cloudfare dns servers aren't used when connecting to a new access point without a
+How to figure out the dns name servers that were returned by dhclient, if you ever wonder why our
+default cloudfare dns servers aren't used when connecting to a new access point without a
 passphrase.
 
 #+BEGIN_example
@@ -228,8 +225,8 @@ gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|o
 #+END_example
 
 ** dnsmasq
-We use the cloudfare dns servers instead of our own, but we want to fall back on our own
-router at home to resolve msi.lan, openwrt.lan, and any other device on our local lan.
+We use the cloudfare dns servers instead of our own, but we want to fall back on our own router at
+home to resolve msi.lan, openwrt.lan, and any other device on our local lan.
 
 #+BEGIN_example
 gargle@p14:~$ sudo apt install dnsmasq
@@ -482,11 +479,11 @@ gargle@p14:~$ cat .Xresources
 
 XTerm*renderFont: true
 XTerm*faceName: DejaVu Sans Mono
-XTerm*faceSize: 12
+XTerm*faceSize: 11
 
 UXTerm*renderFont: true
 UXTerm*faceName: DejaVu Sans Mono
-UXTerm*faceSize: 12
+UXTerm*faceSize: 11
 
 xterm*metaSendsEscape: true
 xterm*selectToClipboard: true
