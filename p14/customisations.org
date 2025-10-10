@@ -19,6 +19,7 @@ root@p14:~# ls /etc/apt/sources.list
 root@p14:~# cat /etc/apt/sources.list
 #deb cdrom:[Debian GNU/Linux 13.1.0 _Trixie_ - Official amd64 NETINST with firmware 20250906-10:22]/ trixie contrib main non-free-firmware
 
+
 deb http://ftp.be.debian.org/debian/ trixie main non-free-firmware
 deb-src http://ftp.be.debian.org/debian/ trixie main non-free-firmware
 
@@ -29,6 +30,7 @@ deb-src http://security.debian.org/debian-security trixie-security main non-free
 # see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
 deb http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
+
 
 # This system was installed using removable media other than
 # CD/DVD/BD (e.g. USB stick, SD card, ISO image file).
@@ -47,7 +49,7 @@ First we suspected networking, then xdm, then systemd-networkd-wait-online.sserv
 all keep those at the defaults.
 
 ** minor
-Some characters appeared with less pixels.  Scaling seems to help.
+Some characters appear with less pixels.
 
 * apt
 We need listbugs to know about issues before we install them.
@@ -490,44 +492,6 @@ xterm*metaSendsEscape: true
 xterm*selectToClipboard: true
 #+END_example
 
-** scaling
-#+BEGIN_example
-gargle@p14:~$ ls -haltr .local/bin/set-xrandr.sh
--rwxr-xr-x 1 gargle gargle 245 Oct 10 08:29 .local/bin/set-xrandr.sh
-#+END_example
-
-#+BEGIN_example
-gargle@p14:~$ cat .local/bin/set-xrandr.sh
-#!/bin/sh
-
-# wait for output to appear
-until /usr/bin/xrandr >/dev/null 2>&1 && /usr/bin/xrandr | grep -q '^eDP'; do sleep 0.5; done
-/usr/bin/xrandr --output eDP --scale 1.25x1.25 --panning 2400x1500 --dpi 120 --pos 0x0 \
-    >/dev/null 2>&1 || true
-#+END_example
-
-#+BEGIN_example
-gargle@p14:~$ cat .config/systemd/user/xrandr-scale.service
-[Unit]
-Description=Apply xrandr scaling for eDP
-After=graphical-session.target
-
-[Service]
-Type=oneshot
-ExecStart=%h/.local/bin/set-xrandr.sh
-Environment=DISPLAY=:0
-# If you need XAUTHORITY, uncomment and adjust:
-# Environment=XAUTHORITY=%h/.Xauthority
-
-[Install]
-WantedBy=default.target
-#+END_example
-
-#+BEGIN_example
-gargle@p14:~$ systemctl --user daemon-reload
-gargle@p14:~$ systemctl --user enable --now xrandr-scale.service
-#+END_example
-
 * xdm
 #+BEGIN_example
 gargle@p14:~$ cat /etc/X11/xdm/Xsetup
@@ -640,19 +604,13 @@ We start emacs on the right side of the screen by default.
 #+BEGIN_example
 ;; set size of emacs
 (setq initial-frame-alist
-      '((left . 1168)
+      '((left . 928)
         (top . 0)
-        (width . 94)
-        (height . 58)))
+        (width . 99)
+        (height . 61)))
 #+END_example
 
-* librewolf
-** about:config
-
-layout.css.devPixelsPerPx 1.25
-
 * windowmaker
-** menu
 #+BEGIN_example
 gargle@p14:~/pandora$ cat ~/GNUstep/Defaults/WMRootMenu
 (
@@ -666,17 +624,6 @@ gargle@p14:~/pandora$ cat ~/GNUstep/Defaults/WMRootMenu
     ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black"),
     ("XTerm", EXEC, "uxterm -bg white -fg black")
 )
-#+END_example
-
-** Preferences
-#+BEGIN_example
-gargle@p14:~$ diff GNUstep/Defaults/WindowMaker GNUstep/Defaults/WindowMaker.old | grep Trebu
-<   MenuTitleFont = "Trebuchet MS,Luxi Sans:weight=200:pixelsize=16";
->   MenuTitleFont = "Trebuchet MS,Luxi Sans:bold:pixelsize=12";
-<   WindowTitleFont = "Trebuchet MS,Luxi Sans:weight=200:pixelsize=16";
->   WindowTitleFont = "Trebuchet MS,Luxi Sans:bold:pixelsize=12";
-<   MenuTextFont = "Trebuchet MS,Luxi Sans:pixelsize=16";
->   MenuTextFont = "Trebuchet MS,Luxi Sans:pixelsize=12";
 #+END_example
 
 * TODO en_GB.UTF-8

@@ -20,13 +20,13 @@
 
 ;; set size of emacs
 (setq initial-frame-alist
-      '((left . 1168)
+      '((left . 928)
         (top . 0)
-        (width . 94)
-        (height . 58)))
+        (width . 99)
+        (height . 61)))
 
-;; set font
-(set-frame-font "DejaVu Sans Mono-12" t t)
+;; set font, because the default becomes something just a little bit smaller in emacs
+;; (set-frame-font "DejaVu Sans Mono-11" t t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -40,8 +40,8 @@
 ;; Insert spaces instead of tabs
 (setq-default indent-tabs-mode nil)
  
-;; Set line width to 94 columns...
-(setq-default fill-column 94)
+;; Set line width to 99 columns...
+(setq-default fill-column 99)
 
 ;; auto-fill mode on in all major modes
 (setq-default auto-fill-function 'do-auto-fill)
