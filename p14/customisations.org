@@ -39,11 +39,15 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 #+END_example
 
 * issues
-Only one mayor issue.  Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early,
-earlier than kms.
+** mayor
+Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, earlier than
+kms.
 
-First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all keep
-those at the defaults.
+First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we
+all keep those at the defaults.
+
+** minor
+Some characters appeared with less pixels.  Scaling seems to help.
 
 * apt
 We need listbugs to know about issues before we install them.
@@ -53,7 +57,8 @@ gargle@p14:~$ sudo apt install apt-listbugs
 #+END_example
 
 * partitions
-We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by means of zam.
+We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by
+means of zam.
 
 #+BEGIN_example
 gargle@p14:~$ lsblk
@@ -206,8 +211,9 @@ OK
 #+END_example
 
 ** dhclient
-How to figure out the dns name servers that were returned by dhclient, if you ever wonder why our
-default cloudfare dns servers aren't used when connecting to a new access point without a passphrase.
+How to figure out the dns name servers that were returned by dhclient, if you ever wonder why
+our default cloudfare dns servers aren't used when connecting to a new access point without a
+passphrase.
 
 #+BEGIN_example
 gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|option domain-name-servers"
@@ -220,8 +226,8 @@ gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|o
 #+END_example
 
 ** dnsmasq
-We use the cloudfare dns servers instead of our own, but we want to fall back on our own router at home
-to resolve msi.lan, openwrt.lan, and any other device on our local lan.
+We use the cloudfare dns servers instead of our own, but we want to fall back on our own
+router at home to resolve msi.lan, openwrt.lan, and any other device on our local lan.
 
 #+BEGIN_example
 gargle@p14:~$ sudo apt install dnsmasq
@@ -457,10 +463,69 @@ gargle@p14:~$ ls -haltr /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x120
 #+END_example
 
 * X
+** loading amdgpu
 #+BEGIN_example
 root@p14:~# cat /etc/modules-load.d/amdgpu.conf
 # ensure the amdgpu module loads early, or X won't start
 amdgpu
+#+END_example
+
+** ~/.Xresources
+
+#+BEGIN_example
+gargle@p14:~$ cat .Xresources
+
+*VT100*foreground: black
+*VT100*background: white
+
+XTerm*renderFont: true
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceSize: 12
+
+UXTerm*renderFont: true
+UXTerm*faceName: DejaVu Sans Mono
+UXTerm*faceSize: 12
+
+xterm*metaSendsEscape: true
+xterm*selectToClipboard: true
+#+END_example
+
+** scaling
+#+BEGIN_example
+gargle@p14:~$ ls -haltr .local/bin/set-xrandr.sh
+-rwxr-xr-x 1 gargle gargle 245 Oct 10 08:29 .local/bin/set-xrandr.sh
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ cat .local/bin/set-xrandr.sh
+#!/bin/sh
+
+# wait for output to appear
+until /usr/bin/xrandr >/dev/null 2>&1 && /usr/bin/xrandr | grep -q '^eDP'; do sleep 0.5; done
+/usr/bin/xrandr --output eDP --scale 1.25x1.25 --panning 2400x1500 --dpi 120 --pos 0x0 \
+    >/dev/null 2>&1 || true
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ cat .config/systemd/user/xrandr-scale.service
+[Unit]
+Description=Apply xrandr scaling for eDP
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/set-xrandr.sh
+Environment=DISPLAY=:0
+# If you need XAUTHORITY, uncomment and adjust:
+# Environment=XAUTHORITY=%h/.Xauthority
+
+[Install]
+WantedBy=default.target
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ systemctl --user daemon-reload
+gargle@p14:~$ systemctl --user enable --now xrandr-scale.service
 #+END_example
 
 * xdm
@@ -534,7 +599,8 @@ gargle@p14:~/banking$ cat /sys/class/thermal/thermal_zone0/temp
 #+END_example
 
 * brightness
-Control the brightness of the screen by chaning the value in /sys/class/backlight/amdgpu_bl0/brightness.
+Control the brightness of the screen by chaning the value in
+/sys/class/backlight/amdgpu_bl0/brightness.
 
 #+BEGIN_example
 gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/brightness
@@ -569,7 +635,24 @@ bind-key C-j send-prefix
 * emacs
 I moved the .emacs file to pandora/p14.
 
-* windowmaker menu
+We start emacs on the right side of the screen by default.
+
+#+BEGIN_example
+;; set size of emacs
+(setq initial-frame-alist
+      '((left . 1168)
+        (top . 0)
+        (width . 94)
+        (height . 58)))
+#+END_example
+
+* librewolf
+** about:config
+
+layout.css.devPixelsPerPx 1.25
+
+* windowmaker
+** menu
 #+BEGIN_example
 gargle@p14:~/pandora$ cat ~/GNUstep/Defaults/WMRootMenu
 (
@@ -581,30 +664,19 @@ gargle@p14:~/pandora$ cat ~/GNUstep/Defaults/WMRootMenu
     ("XTerm red", EXEC, "uxterm -bg red -fg black"),
     ("XTerm cyan", EXEC, "uxterm -bg cyan -fg black"),
     ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black"),
-    ("XTerm 231x63", EXEC, "uxterm -bg white -fg black -geometry 231x63+0+0 -fs 10"),
-    ("XTerm 96x45", EXEC, "uxterm -bg white -fg black -geometry 96x45+0+0")
+    ("XTerm", EXEC, "uxterm -bg white -fg black")
 )
 #+END_example
-CLOSED: [2025-10-09 Thu 09:46]
 
-* ~/.Xresources
-
+** Preferences
 #+BEGIN_example
-gargle@p14:~$ cat .Xresources
-
-*VT100*foreground: black
-*VT100*background: white
-
-XTerm*renderFont: true
-XTerm*faceName: DejaVu Sans Mono
-XTerm*faceSize: 15
-
-UXTerm*renderFont: true
-UXTerm*faceName: DejaVu Sans Mono
-UXTerm*faceSize: 15
-
-xterm*metaSendsEscape: true
-xterm*selectToClipboard: true
+gargle@p14:~$ diff GNUstep/Defaults/WindowMaker GNUstep/Defaults/WindowMaker.old | grep Trebu
+<   MenuTitleFont = "Trebuchet MS,Luxi Sans:weight=200:pixelsize=16";
+>   MenuTitleFont = "Trebuchet MS,Luxi Sans:bold:pixelsize=12";
+<   WindowTitleFont = "Trebuchet MS,Luxi Sans:weight=200:pixelsize=16";
+>   WindowTitleFont = "Trebuchet MS,Luxi Sans:bold:pixelsize=12";
+<   MenuTextFont = "Trebuchet MS,Luxi Sans:pixelsize=16";
+>   MenuTextFont = "Trebuchet MS,Luxi Sans:pixelsize=12";
 #+END_example
 
 * TODO en_GB.UTF-8
