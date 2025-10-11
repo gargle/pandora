@@ -22,8 +22,8 @@ openwrt@OpenWrt:~$ cat .ssh/authorized_keys
 ** dropbear
 
 #+BEGIN_example
-openwrt@OpenWrt:~$ sudo cat /etc/config/dropbear 
- 
+openwrt@OpenWrt:~$ sudo cat /etc/config/dropbear
+
 config dropbear
         option Interface 'lan'
         option Port '2222'
