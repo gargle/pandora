@@ -1,0 +1,65 @@
+# openwrt -*- mode: org -*-
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELLED(c)
+#+STARTUP: overview logdone
+
+* user openwrt@OpenWrt
+#+BEGIN_example
+openwrt@OpenWrt:~$ cat /etc/passwd | grep openwrt
+openwrt:x:1000:1000::/home/openwrt:/bin/ash
+#+END_example
+
+* ssh for openwrt@Openwrt
+** authorized key
+#+BEGIN_example
+openwrt@OpenWrt:~$ ls .ssh/authorized_keys
+.ssh/authorized_keys
+#+END_example
+
+#+BEGIN_example
+openwrt@OpenWrt:~$ cat .ssh/authorized_keys
+...
+#+END_example
+** dropbear
+
+#+BEGIN_example
+openwrt@OpenWrt:~$ sudo cat /etc/config/dropbear 
+ 
+config dropbear
+        option Interface 'lan'
+        option Port '2222'
+        option PasswordAuth 'off'
+        option RootPasswordAuth 'off'
+#+END_example
+
+* uhttp
+** we disabled uhttp
+
+So there is no symlink in /etc/rc.d anymore:
+
+#+BEGIN_example
+openwrt@OpenWrt:~$ sudo /etc/init.d/uhttpd disable
+openwrt@OpenWrt:~$ sudo ls -haltr /etc/rc.d/ | grep -i uhttp
+openwrt@OpenWrt:~$ sudo /etc/init.d/uhttpd status
+inactive
+#+END_example
+
+This is what was there before:
+
+#+BEGIN_example
+openwrt@OpenWrt:~$ sudo ls -haltr /etc/rc.d/ | grep -i uhttp
+openwrt@OpenWrt:~$ sudo /etc/init.d/uhttpd enable
+openwrt@OpenWrt:~$ sudo ls -haltr /etc/rc.d/ | grep -i uhttp
+lrwxrwxrwx    1 root     root          16 Oct 11 16:01 S50uhttpd -> ../init.d/uhttpd
+#+END_example
+
+** starting uhttp
+
+#+BEGIN_example
+sudo /etc/init.d/uhttp start
+#+END_example
+
+** stopping uhttp
+
+#+BEGIN_example
+sudo /etc/init.d/uhttp stop
+#+END_example

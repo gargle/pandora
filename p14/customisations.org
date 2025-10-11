@@ -1,4 +1,4 @@
-# banking -*- mode: org -*-
+# p14 -*- mode: org -*-
 #+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELLED(c)
 #+STARTUP: overview logdone
 
