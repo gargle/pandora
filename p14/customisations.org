@@ -511,9 +511,9 @@ gargle@p14:~/pandora$ diff ~/.config/sway/config /etc/sway/config
 <
 121,125d112
 <
-<     # with alt-tab
-<     bindsym alt-tab focus next
-<     bindsym shift-alt-tab focus prev
+<     # with Alt+Tab
+<     bindsym Alt+Tab focus next
+<     bindsym Shift+Alt+Tab focus prev
 <
 233,235d219
 <
