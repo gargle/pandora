@@ -509,11 +509,17 @@ gargle@p14:~/pandora$ diff ~/.config/sway/config /etc/sway/config
 <
 < input <identifier> xkb_model "pc105"
 <
-228,230d219
+121,125d112
+<
+<     # with alt-tab
+<     bindsym alt-tab focus next
+<     bindsym shift-alt-tab focus prev
+<
+233,235d219
 <
 <     swaybar_command waybar
 <
-232a222,230
+237a222,230
 >     # When the status_command prints a new line to stdout, swaybar updates.
 >     # The default just shows the current date and time.
 >     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
@@ -523,7 +529,7 @@ gargle@p14:~/pandora$ diff ~/.config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-236,239d233
+241,244d233
 < exec swaybg -i /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg -m fill
 <
 < for_window [app_id="librewolf"] floating enable
