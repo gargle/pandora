@@ -745,6 +745,17 @@ set-option -g prefix C-j
 bind-key C-j send-prefix
 #+END_example
 
+* foot
+
+#+BEGIN_example
+gargle@p14:~$ cat .config/foot/foot.ini
+font=DejaVu Sans Mono:pixelsize=15
+
+[colors]
+background=ffffff
+foreground=000000
+#+END_example
+
 * emacs
 I moved the .emacs file to pandora/p14.
 
