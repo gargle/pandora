@@ -45,9 +45,6 @@ Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, e
 First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
 keep those at the defaults.
 
-** minor
-Some characters appear with less pixels.
-
 * apt
 We need listbugs to know about issues before we install them.
 
@@ -419,6 +416,8 @@ PRIORITY=100
 
 * keyboard
 
+Beware, sway needs its own keyboard configuration!
+
 #+BEGIN_example
 root@p14:~# cat /etc/default/keyboard
 # KEYBOARD CONFIGURATION FILE
@@ -444,6 +443,36 @@ root@p14:~# setupcon
 root@p14:~# update-initramfs -u
 #+END_example
 
+* tlp
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/tlp.d/battery.conf
+# from 00-template.conf - Template for TLP drop-in customizations
+# See full explanation: https://linrunner.de/tlp/settings
+#
+# Battery charge level below which charging will begin.
+START_CHARGE_THRESH_BAT0=75
+# Battery charge level above which charging will stop.
+STOP_CHARGE_THRESH_BAT0=80
+#+END_example
+
+#+BEGIN_example
+root@p14:~# systemctl enable --now tlp.service
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ systemctl status tlp.service
+● tlp.service - TLP system startup/shutdown
+     Loaded: loaded (/usr/lib/systemd/system/tlp.service; enabled; preset: enabled)
+     Active: active (exited) since Wed 2025-10-15 20:53:59 CEST; 7min ago
+ Invocation: 91d83e0cafc7427b945d60730503c249
+       Docs: https://linrunner.de/tlp
+    Process: 25473 ExecStart=/usr/sbin/tlp init start (code=exited, status=0/SUCCESS)
+   Main PID: 25473 (code=exited, status=0/SUCCESS)
+   Mem peak: 4.4M
+        CPU: 208ms
+#+END_example
+
 * editor
 We go for vim.basic instead of nano
 
@@ -455,50 +484,131 @@ gargle@p14:~$ sudo update-alternatives --config editor
 gargle@p14:~$ sudo apt remove nano --purge
 #+END_EXAMPLE
 
-* background
-#+BEGIN_example
-gargle@p14:~$ ls -haltr /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x1200.jpg
--rw-rw-r-- 1 root root 161K Sep 30 15:10 '/usr/share/WindowMaker/Backgrounds/Don-Quixote 1920x1200.jpg
-#+END_example
+* amdgpu module
 
-* X
-** loading amdgpu
 #+BEGIN_example
 root@p14:~# cat /etc/modules-load.d/amdgpu.conf
 # ensure the amdgpu module loads early, or X won't start
 amdgpu
 #+END_example
 
-** ~/.Xresources
+* sway
 
 #+BEGIN_example
-gargle@p14:~$ cat .Xresources
-
-*VT100*foreground: black
-*VT100*background: white
-
-XTerm*renderFont: true
-XTerm*faceName: DejaVu Sans Mono
-XTerm*faceSize: 11
-
-UXTerm*renderFont: true
-UXTerm*faceName: DejaVu Sans Mono
-UXTerm*faceSize: 11
-
-xterm*metaSendsEscape: true
-xterm*selectToClipboard: true
+gargle@p14:~/pandora$ sudo apt install sway sway-backgrounds waybar wmenu
 #+END_example
 
-* xdm
 #+BEGIN_example
-gargle@p14:~$ cat /etc/X11/xdm/Xsetup
-#!/bin/sh
-#
-# This script is run as root before showing login widget.
+gargle@p14:~/pandora$ diff ~/.config/sway/config /etc/sway/config
+64,71d63
+< input * {
+<   xkb_layout "us"
+<   xkb_variant "altgr-weur"
+<   xkb_options "compose:lctrl,ctrl:nocaps"
+< }
+<
+< input <identifier> xkb_model "pc105"
+<
+228,230d219
+<
+<     swaybar_command waybar
+<
+232a222,230
+>     # When the status_command prints a new line to stdout, swaybar updates.
+>     # The default just shows the current date and time.
+>     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+>
+>     colors {
+>         statusline #ffffff
+>         background #323232
+>         inactive_workspace #32323200 #32323200 #5c5c5c
+>     }
+236,239d233
+< exec swaybg -i /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg -m fill
+<
+< for_window [app_id="librewolf"] floating enable
+<
+#+END_example
 
-/usr/bin/xli -onroot /usr/share/WindowMaker/Backgrounds/Don-Quixote\ 1920x1200.jpg
+* lightdm
 
-#xsetroot -solid rgb:8/8/8
+#+BEGIN_example
+gargle@p14:~/pandora$ sudo apt install lightdm lightdm-gtk-greeter
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~/pandora$ ls -haltr /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg
+-rw-rw-r-- 1 root root 161K Sep 30 15:10 '/usr/share/backgrounds/sway/Don-Quixote 1920x1200.jpg'
+#+END_example
+
+We only change the background.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ grep ^background /etc/lightdm/lightdm-gtk-greeter.conf
+background=/usr/share/backgrounds/sway/Don-Quixote 1920x1200.jpg
+#+END_example
+
+* waybar
+
+We only show our wifi, our battery, and the year and date.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ diff /etc/xdg/waybar/config.jsonc ~/.config/waybar/config.jsonc
+10,13c10,13
+<         "sway/workspaces",
+<         "sway/mode",
+<         "sway/scratchpad",
+<         "custom/media"
+---
+>         "sway/workspaces"
+>     //     "sway/mode",
+>     //     "sway/scratchpad",
+>     //     "custom/media"
+19,21c19,21
+<         "mpd",
+<         "idle_inhibitor",
+<         "pulseaudio",
+---
+>      //    "mpd",
+>      //    "idle_inhibitor",
+>      //    "pulseaudio",
+23,29c23,29
+<         "power-profiles-daemon",
+<         "cpu",
+<         "memory",
+<         "temperature",
+<         "backlight",
+<         "keyboard-state",
+<         "sway/language",
+---
+>      //    "power-profiles-daemon",
+>      //    "cpu",
+>      //    "memory",
+>      //    "temperature",
+>      //    "backlight",
+>      //    "keyboard-state",
+>      //    "sway/language",
+31,34c31,34
+<         "battery#bat2",
+<         "clock",
+<         "tray",
+<         "custom/power"
+---
+>      //    "battery#bat2",
+>         "clock"
+>      //    "tray",
+>      //    "custom/power"
+112c112,113
+<         "format-alt": "{:%Y-%m-%d}"
+---
+>         // "format-alt": "{:%Y-%m-%d}"
+>         "format": "{:%Y-%m-%d %H:%M}"
+#+END_example
+
+We keep the same stylesheet.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ diff /etc/xdg/waybar/style.css ~/.config/waybar/style.css
 #+END_example
 
 * pcspkr
@@ -543,6 +653,42 @@ root@p14:~# systemctl enable --now custom-startup.service
 
 * battery
 Check the battery.
+
+Note that we show the battery in the waybar.
+
+** sudo tlp-stat -b
+
+#+BEGIN_example
+gargle@p14:~$ sudo tlp-stat -b
+--- TLP 1.8.0 --------------------------------------------
+
++++ Battery Care
+Plugin: thinkpad
+Supported features: charge thresholds, recalibration
+Driver usage:
+...
++++ ThinkPad Battery Status: BAT0 (Main / Internal)
+/sys/class/power_supply/BAT0/manufacturer                   = BYD
+/sys/class/power_supply/BAT0/model_name                     = 5B11H56417
+/sys/class/power_supply/BAT0/cycle_count                    =      4
+/sys/class/power_supply/BAT0/energy_full_design             =  52500 [mWh]
+/sys/class/power_supply/BAT0/energy_full                    =  52530 [mWh]
+/sys/class/power_supply/BAT0/energy_now                     =  51650 [mWh]
+/sys/class/power_supply/BAT0/power_now                      =   3958 [mW]
+/sys/class/power_supply/BAT0/status                         = Discharging
+
+/sys/class/power_supply/BAT0/charge_control_start_threshold =     75 [%]
+/sys/class/power_supply/BAT0/charge_control_end_threshold   =     80 [%]
+/sys/class/power_supply/BAT0/charge_behaviour               = [auto] inhibit-charge force-discharge
+
+Charge                                                      =   98.3 [%]
+Capacity                                                    =  100.1 [%]
+
++++ Recommendations
+...
+#+END_example
+
+** cat /sys/class/power_supply/BAT0/status
 
 #+BEGIN_example
 gargle@p14:~$ cat /sys/class/power_supply/BAT0/status
@@ -607,23 +753,11 @@ We start emacs on the right side of the screen by default.
         (height . 61)))
 #+END_example
 
-* windowmaker
+We set the line length to 102.
+
 #+BEGIN_example
-gargle@p14:~$ cat GNUstep/Defaults/WMRootMenu
-(
-  Applications,
-  (Exit, EXIT),
-  (Debian, OPEN_MENU, "/usr/share/WindowMaker/menu.hook"),
-  (XTerms,
-    ("XTerm gold", EXEC, "uxterm -bg gold -fg black"),
-    ("XTerm green", EXEC, "uxterm -bg green -fg black"),
-    ("XTerm red", EXEC, "uxterm -bg red -fg black"),
-    ("XTerm cyan", EXEC, "uxterm -bg cyan -fg black"),
-    ("XTerm yellow", EXEC, "uxterm -bg yellow -fg black"),
-    ("XTerm black", EXEC, "uxterm -bg black -fg white")
-  ),
-  (XTerm, EXEC, "uxterm -bg white -fg black")
-)
+;; Set line width to 102 columns...
+(setq-default fill-column 102)
 #+END_example
 
 * TODO en_GB.UTF-8

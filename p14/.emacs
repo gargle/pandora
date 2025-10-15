@@ -40,8 +40,8 @@
 ;; Insert spaces instead of tabs
 (setq-default indent-tabs-mode nil)
  
-;; Set line width to 99 columns...
-(setq-default fill-column 99)
+;; Set line width to 102 columns...
+(setq-default fill-column 102)
 
 ;; auto-fill mode on in all major modes
 (setq-default auto-fill-function 'do-auto-fill)
