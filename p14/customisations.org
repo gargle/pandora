@@ -748,6 +748,10 @@ bind-key C-j send-prefix
 * emacs
 I moved the .emacs file to pandora/p14.
 
+#+BEGIN_example
+gargle@p14:~$ sudo apt install emacs-pgtk
+#+END_example
+
 We start emacs on the right side of the screen by default.
 
 #+BEGIN_example
