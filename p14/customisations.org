@@ -451,7 +451,7 @@ gargle@p14:~$ cat /etc/tlp.d/battery.conf
 # See full explanation: https://linrunner.de/tlp/settings
 #
 # Battery charge level below which charging will begin.
-START_CHARGE_THRESH_BAT0=75
+START_CHARGE_THRESH_BAT0=60
 # Battery charge level above which charging will stop.
 STOP_CHARGE_THRESH_BAT0=80
 #+END_example
