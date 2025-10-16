@@ -445,6 +445,8 @@ root@p14:~# update-initramfs -u
 
 * tlp
 
+I removed tlp-rdw because it is a dependency of network-manager, and we use wpa_supplicant.
+
 #+BEGIN_example
 gargle@p14:~$ cat /etc/tlp.d/battery.conf
 # from 00-template.conf - Template for TLP drop-in customizations
