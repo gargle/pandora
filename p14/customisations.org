@@ -554,6 +554,13 @@ gargle@p14:~/pandora$ grep ^background /etc/lightdm/lightdm-gtk-greeter.conf
 background=/usr/share/backgrounds/sway/Don-Quixote 1920x1200.jpg
 #+END_example
 
+We remove the old Default Xsession entry:
+
+#+BEGIN_example
+root@p14: cd /usr/share/xsessions/
+root@p14: mv lightdm-xsession.desktop lightdm-xsession.desktop.old
+#+END_example
+
 * waybar
 
 We only show our wifi, our battery, and the year and date.
