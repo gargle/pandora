@@ -559,62 +559,58 @@ background=/usr/share/backgrounds/sway/Don-Quixote 1920x1200.jpg
 We only show our wifi, our battery, and the year and date.
 
 #+BEGIN_example
-gargle@p14:~/pandora$ diff /etc/xdg/waybar/config.jsonc ~/.config/waybar/config.jsonc
-10,13c10,13
-<         "sway/workspaces",
-<         "sway/mode",
-<         "sway/scratchpad",
-<         "custom/media"
+gargle@p14:~/pandora$ diff ~/.config/waybar/config.jsonc /etc/xdg/waybar/config.jsonc
+11,13c11,13
+<     //     "sway/mode",
+<         "sway/scratchpad"
+<     //     "custom/media"
 ---
->         "sway/workspaces"
->     //     "sway/mode",
->     //     "sway/scratchpad",
->     //     "custom/media"
-19,21c19,21
-<         "mpd",
-<         "idle_inhibitor",
-<         "pulseaudio",
+>         "sway/mode",
+>         "sway/scratchpad",
+>         "custom/media"
+19,20c19,20
+<      //    "mpd",
+<      //    "idle_inhibitor",
 ---
->      //    "mpd",
->      //    "idle_inhibitor",
->      //    "pulseaudio",
+>         "mpd",
+>         "idle_inhibitor",
 23,29c23,29
-<         "power-profiles-daemon",
-<         "cpu",
-<         "memory",
-<         "temperature",
-<         "backlight",
-<         "keyboard-state",
-<         "sway/language",
+<      //    "power-profiles-daemon",
+<      //    "cpu",
+<      //    "memory",
+<      //    "temperature",
+<      //    "backlight",
+<      //    "keyboard-state",
+<      //    "sway/language",
 ---
->      //    "power-profiles-daemon",
->      //    "cpu",
->      //    "memory",
->      //    "temperature",
->      //    "backlight",
->      //    "keyboard-state",
->      //    "sway/language",
+>         "power-profiles-daemon",
+>         "cpu",
+>         "memory",
+>         "temperature",
+>         "backlight",
+>         "keyboard-state",
+>         "sway/language",
 31,34c31,34
-<         "battery#bat2",
-<         "clock",
-<         "tray",
-<         "custom/power"
+<      //    "battery#bat2",
+<         "clock"
+<      //    "tray",
+<      //    "custom/power"
 ---
->      //    "battery#bat2",
->         "clock"
->      //    "tray",
->      //    "custom/power"
-112c112,113
-<         "format-alt": "{:%Y-%m-%d}"
+>         "battery#bat2",
+>         "clock",
+>         "tray",
+>         "custom/power"
+112,113c112
+<         // "format-alt": "{:%Y-%m-%d}"
+<         "format": "{:%Y-%m-%d %H:%M}"
 ---
->         // "format-alt": "{:%Y-%m-%d}"
->         "format": "{:%Y-%m-%d %H:%M}"
+>         "format-alt": "{:%Y-%m-%d}"
 #+END_example
 
 We keep the same stylesheet.
 
 #+BEGIN_example
-gargle@p14:~/pandora$ diff /etc/xdg/waybar/style.css ~/.config/waybar/style.css
+gargle@p14:~/pandora$ diff ~/.config/waybar/style.css /etc/xdg/waybar/style.css
 #+END_example
 
 * pcspkr
