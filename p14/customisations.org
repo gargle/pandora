@@ -763,17 +763,6 @@ I moved the .emacs file to pandora/p14.
 gargle@p14:~$ sudo apt install emacs-pgtk
 #+END_example
 
-We start emacs on the right side of the screen by default.
-
-#+BEGIN_example
-;; set size of emacs
-(setq initial-frame-alist
-      '((left . 928)
-        (top . 0)
-        (width . 99)
-        (height . 61)))
-#+END_example
-
 We set the line length to 102.
 
 #+BEGIN_example

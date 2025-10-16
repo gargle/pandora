@@ -18,16 +18,6 @@
 ;; set menu-bar-mode off
 (column-number-mode t)
 
-;; set size of emacs
-(setq initial-frame-alist
-      '((left . 928)
-        (top . 0)
-        (width . 99)
-        (height . 61)))
-
-;; set font, because the default becomes something just a little bit smaller in emacs
-;; (set-frame-font "DejaVu Sans Mono-11" t t)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
