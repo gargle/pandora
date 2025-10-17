@@ -443,38 +443,6 @@ root@p14:~# setupcon
 root@p14:~# update-initramfs -u
 #+END_example
 
-* tlp
-
-I removed tlp-rdw because it is a dependency of network-manager, and we use wpa_supplicant.
-
-#+BEGIN_example
-gargle@p14:~$ cat /etc/tlp.d/battery.conf
-# from 00-template.conf - Template for TLP drop-in customizations
-# See full explanation: https://linrunner.de/tlp/settings
-#
-# Battery charge level below which charging will begin.
-START_CHARGE_THRESH_BAT0=60
-# Battery charge level above which charging will stop.
-STOP_CHARGE_THRESH_BAT0=80
-#+END_example
-
-#+BEGIN_example
-root@p14:~# systemctl enable --now tlp.service
-#+END_example
-
-#+BEGIN_example
-gargle@p14:~$ systemctl status tlp.service
-● tlp.service - TLP system startup/shutdown
-     Loaded: loaded (/usr/lib/systemd/system/tlp.service; enabled; preset: enabled)
-     Active: active (exited) since Wed 2025-10-15 20:53:59 CEST; 7min ago
- Invocation: 91d83e0cafc7427b945d60730503c249
-       Docs: https://linrunner.de/tlp
-    Process: 25473 ExecStart=/usr/sbin/tlp init start (code=exited, status=0/SUCCESS)
-   Main PID: 25473 (code=exited, status=0/SUCCESS)
-   Mem peak: 4.4M
-        CPU: 208ms
-#+END_example
-
 * editor
 We go for vim.basic instead of nano
 
@@ -707,6 +675,15 @@ Discharging
 gargle@p14:~$ cat /sys/class/power_supply/BAT0/capacity
 59
 #+END_example
+
+** start charging and stop charging behaviour
+
+#+BEGIN_EXAMPLE
+gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_start_threshold
+60
+gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_stop_threshold
+80
+#+END_EXAMPLE
 
 * temperature
 Check the temperature.  This below means 42 degrees.
