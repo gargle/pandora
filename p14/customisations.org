@@ -472,6 +472,12 @@ gargle@p14:~$ sudo update-alternatives --config editor
 gargle@p14:~$ sudo apt remove nano --purge
 #+END_EXAMPLE
 
+* sound
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt install wireplumber pipewire pipewire-pulse libspa-0.2-bluetooth
+#+END_example
+
 * amdgpu module
 
 #+BEGIN_example
@@ -617,9 +623,10 @@ root@p14:~# cat /etc/modprobe.d/pcspkr.conf
 blacklist pcspkr
 #+END_example
 
-* led
 
-We switch of the annoying led on F4 (mic mute LED).
+* /usr/local/bin/custom-startup.sh
+
+A script to set up our local choosings for our led and for our battery.
 
 #+BEGIN_example
 root@p14:~# cat /etc/systemd/system/custom-startup.service
@@ -639,8 +646,12 @@ WantedBy=multi-user.target
 #+END_example
 
 #+BEGIN_example
-root@p14:~# cat /usr/local/bin/custom-startup.sh
+gargle@p14:~/pandora$ cat /usr/local/bin/custom-startup.sh
 #!/bin/sh
+
+# set the battery
+echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold
+echo 60 > /sys/class/power_supply/BAT0/charge_control_start_threshold
 
 # turn mic mute LED off
 echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
@@ -650,9 +661,15 @@ echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
 root@p14:~# systemctl enable --now custom-startup.service
 #+END_example
 
+* led
+
+We switch of the annoying led on F4 (mic mute LED), see /usr/local/bin/custom-startup.sh here above.
+
+
 * battery
 
-Note that we show the battery in the waybar.
+Note that we show the battery in the waybar.  We set the start and end charging thresholds in
+/usr/local/bin/custom-startup.sh as discussed here above.
 
 ** cat /sys/class/power_supply/BAT0/status
 
@@ -666,18 +683,9 @@ gargle@p14:~$ cat /sys/class/power_supply/BAT0/capacity
 ** show start charging and stopping charging behaviour
 
 #+BEGIN_EXAMPLE
-gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_start_threshold
+gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_control_start_threshold
 60
-gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_stop_threshold
-80
-#+END_EXAMPLE
-
-** modify start charging and stopping charging behaviour
-
-#+BEGIN_EXAMPLE
-gargle@p14:~/pandora/p14$ echo 60 | sudo tee  /sys/class/power_supply/BAT0/charge_start_threshold
-60
-gargle@p14:~/pandora/p14$ echo 80 | sudo tee cat /sys/class/power_supply/BAT0/charge_stop_threshold
+gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_control_end_threshold
 80
 #+END_EXAMPLE
 
