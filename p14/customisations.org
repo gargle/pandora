@@ -3,6 +3,7 @@
 #+STARTUP: overview logdone
 
 * debian trixie
+
 We install debian trixie, stable.
 
 #+BEGIN_example
@@ -39,13 +40,16 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 #+END_example
 
 * issues
+
 ** mayor
+
 Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, earlier than kms.
 
 First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
 keep those at the defaults.
 
 * apt
+
 We need listbugs to know about issues before we install them.
 
 #+BEGIN_example
@@ -53,6 +57,7 @@ gargle@p14:~$ sudo apt install apt-listbugs
 #+END_example
 
 * partitions
+
 We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by
 means of zam.
 
@@ -70,10 +75,13 @@ nvme0n1                259:0    0 476.9G  0 disk
 #+END_example
 
 * f1-f12 function keys
+
 We tell the bios that f1-f12 are accessible without fnlock.
 
 * networking
+
 ** lo and enp1s0f0
+
 #+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/network/interfaces
 -rw-r--r-- 1 root root 322 Oct  2 16:19 /etc/network/interfaces
@@ -103,7 +111,9 @@ iface enp1s0f0 inet dhcp
 #+END_example
 
 ** wlp2s0
+
 *** wpa_supplicant
+
 #+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
 -rw-r--r-- 1 root root 1.3K Oct  2 15:36 /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
@@ -120,11 +130,13 @@ network={
 #+END_example
 
 *** scan for access points
+
 #+BEGIN_example
 gargle@p14:~$ sudo iwlist wlp2s0 scan | grep ESSID
 #+END_example
 
 *** generate an entry for a new wifi access point
+
 Add the following output to /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf.
 
 For a regular access point with a passphrase:
@@ -148,6 +160,7 @@ network={
 #+END_example
 
 *** systemd
+
 #+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/systemd/network/wlp2s0.network
 -rw-r--r-- 1 root root 41 Oct  2 14:46 /etc/systemd/network/wlp2s0.network
@@ -207,6 +220,7 @@ OK
 #+END_example
 
 ** dhclient
+
 How to figure out the dns name servers that were returned by dhclient, if you ever wonder why our
 default cloudfare dns servers aren't used when connecting to a new access point without a
 passphrase.
@@ -222,6 +236,7 @@ gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|o
 #+END_example
 
 ** dnsmasq
+
 We use the cloudfare dns servers instead of our own, but we want to fall back on our own router at
 home to resolve msi.lan, openwrt.lan, and any other device on our local lan.
 
@@ -297,6 +312,7 @@ root@p14:~# systemctl enable --now dnsmask.service
 #+END_example
 
 * firewall
+
 We go with the defaults, just make sure IPV6=yes is on.
 
 #+BEGIN_example
@@ -382,6 +398,7 @@ New profiles: skip
 #+END_example
 
 * swap
+
 We install zram, use 25% of RAM max and use PRIORITY=100.
 
 #+BEGIN_example
@@ -444,6 +461,7 @@ root@p14:~# update-initramfs -u
 #+END_example
 
 * editor
+
 We go for vim.basic instead of nano
 
 #+BEGIN_EXAMPLE
@@ -591,6 +609,7 @@ gargle@p14:~/pandora$ diff ~/.config/waybar/style.css /etc/xdg/waybar/style.css
 #+END_example
 
 * pcspkr
+
 We disable the pcspeaker to get rid of the annoying BEEP in xterm and console.
 
 #+BEGIN_example
@@ -599,6 +618,7 @@ blacklist pcspkr
 #+END_example
 
 * led
+
 We switch of the annoying led on F4 (mic mute LED).
 
 #+BEGIN_example
@@ -631,41 +651,8 @@ root@p14:~# systemctl enable --now custom-startup.service
 #+END_example
 
 * battery
-Check the battery.
 
 Note that we show the battery in the waybar.
-
-** sudo tlp-stat -b
-
-#+BEGIN_example
-gargle@p14:~$ sudo tlp-stat -b
---- TLP 1.8.0 --------------------------------------------
-
-+++ Battery Care
-Plugin: thinkpad
-Supported features: charge thresholds, recalibration
-Driver usage:
-...
-+++ ThinkPad Battery Status: BAT0 (Main / Internal)
-/sys/class/power_supply/BAT0/manufacturer                   = BYD
-/sys/class/power_supply/BAT0/model_name                     = 5B11H56417
-/sys/class/power_supply/BAT0/cycle_count                    =      4
-/sys/class/power_supply/BAT0/energy_full_design             =  52500 [mWh]
-/sys/class/power_supply/BAT0/energy_full                    =  52530 [mWh]
-/sys/class/power_supply/BAT0/energy_now                     =  51650 [mWh]
-/sys/class/power_supply/BAT0/power_now                      =   3958 [mW]
-/sys/class/power_supply/BAT0/status                         = Discharging
-
-/sys/class/power_supply/BAT0/charge_control_start_threshold =     75 [%]
-/sys/class/power_supply/BAT0/charge_control_end_threshold   =     80 [%]
-/sys/class/power_supply/BAT0/charge_behaviour               = [auto] inhibit-charge force-discharge
-
-Charge                                                      =   98.3 [%]
-Capacity                                                    =  100.1 [%]
-
-+++ Recommendations
-...
-#+END_example
 
 ** cat /sys/class/power_supply/BAT0/status
 
@@ -676,7 +663,7 @@ gargle@p14:~$ cat /sys/class/power_supply/BAT0/capacity
 59
 #+END_example
 
-** start charging and stop charging behaviour
+** show start charging and stopping charging behaviour
 
 #+BEGIN_EXAMPLE
 gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_start_threshold
@@ -685,7 +672,17 @@ gargle@p14:~/pandora/p14$ cat /sys/class/power_supply/BAT0/charge_stop_threshold
 80
 #+END_EXAMPLE
 
+** modify start charging and stopping charging behaviour
+
+#+BEGIN_EXAMPLE
+gargle@p14:~/pandora/p14$ echo 60 | sudo tee  /sys/class/power_supply/BAT0/charge_start_threshold
+60
+gargle@p14:~/pandora/p14$ echo 80 | sudo tee cat /sys/class/power_supply/BAT0/charge_stop_threshold
+80
+#+END_EXAMPLE
+
 * temperature
+
 Check the temperature.  This below means 42 degrees.
 
 #+BEGIN_example
@@ -694,12 +691,12 @@ gargle@p14:~/banking$ cat /sys/class/thermal/thermal_zone0/temp
 #+END_example
 
 * brightness
-Control the brightness of the screen by chaning the value in
-/sys/class/backlight/amdgpu_bl0/brightness.
+
+Control the brightness of the screen.
 
 #+BEGIN_example
 gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/brightness
-32
+16
 #+END_example
 
 #+BEGIN_example
@@ -708,11 +705,12 @@ gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
 #+END_example
 
 #+BEGIN_example
-gargle@p14:~/pandora$ echo 32 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
-32
+gargle@p14:~/pandora$ echo 16 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+16
 #+END_example
 
 * cal
+
 cal makes part of bsdmainutils.
 
 #+BEGIN_example
@@ -720,6 +718,7 @@ gargle@p14:~/pandora$ sudo apt install bsdmainutils
 #+END_example
 
 * tmux
+
 #+BEGIN_example
 gargle@p14:~$ cat .tmux.conf
 unbind C-b
@@ -739,6 +738,7 @@ foreground=000000
 #+END_example
 
 * emacs
+
 I moved the .emacs file to pandora/p14.
 
 #+BEGIN_example
