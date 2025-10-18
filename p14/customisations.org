@@ -547,8 +547,10 @@ gargle@p14:~/pandora$ ls -haltr /usr/share/backgrounds/sway/Don-Quixote\ 1920x12
 We only change the background.
 
 #+BEGIN_example
-gargle@p14:~/pandora$ grep ^background /etc/lightdm/lightdm-gtk-greeter.conf
-background=/usr/share/backgrounds/sway/Don-Quixote 1920x1200.jpg
+gargle@p14:~$ grep -v '^#' /etc/lightdm/lightdm-gtk-greeter.conf
+[greeter]
+background=/usr/share/backgrounds/Don-Quixote 1920x1200.jpg
+default-user-image=/usr/share/icons/vendor/256x256/emblems/emblem-vendor.png
 #+END_example
 
 We remove the old Default Xsession entry:
