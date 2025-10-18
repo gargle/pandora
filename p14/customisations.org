@@ -433,8 +433,6 @@ PRIORITY=100
 
 * keyboard
 
-Beware, sway needs its own keyboard configuration!
-
 #+BEGIN_example
 root@p14:~# cat /etc/default/keyboard
 # KEYBOARD CONFIGURATION FILE
@@ -458,6 +456,19 @@ gargle@p14:~$ sudo systemctl restart keyboard-setup.service
 #+BEGIN_example
 root@p14:~# setupcon
 root@p14:~# update-initramfs -u
+#+END_example
+
+Beware, sway needs its own keyboard configuration!
+
+#+BEGIN_example
+gargle@p14:~/pandora$ cat /etc/sway/config.d/keyboard.conf
+input * {
+  xkb_layout "us"
+  xkb_variant "altgr-weur"
+  xkb_options "compose:lctrl,ctrl:nocaps"
+}
+
+input <identifier> xkb_model "pc105"
 #+END_example
 
 * editor
