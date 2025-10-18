@@ -504,37 +504,18 @@ gargle@p14:~/pandora$ sudo apt install sway sway-backgrounds waybar wmenu
 #+END_example
 
 #+BEGIN_example
-gargle@p14:~/pandora$ diff ~/.config/sway/config /etc/sway/config
-64,71d63
-< input * {
-<   xkb_layout "us"
-<   xkb_variant "altgr-weur"
-<   xkb_options "compose:lctrl,ctrl:nocaps"
-< }
-<
-< input <identifier> xkb_model "pc105"
-<
-121,125d112
+gargle@p14:~$ diff .config/sway/config /etc/sway/config
+113,117d112
 <
 <     # with Alt+Tab
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
 <
-233,235d219
+225,227d219
 <
 <     swaybar_command waybar
 <
-237a222,230
->     # When the status_command prints a new line to stdout, swaybar updates.
->     # The default just shows the current date and time.
->     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
->
->     colors {
->         statusline #ffffff
->         background #323232
->         inactive_workspace #32323200 #32323200 #5c5c5c
->     }
-241,244d233
+242,245d233
 < exec swaybg -i /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg -m fill
 <
 < for_window [app_id="librewolf"] floating enable
