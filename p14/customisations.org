@@ -511,11 +511,22 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
 <
-225,227d219
-<
+224a220
+>     position top
+226,227c222,230
 <     swaybar_command waybar
 <
-242,245d233
+---
+>     # When the status_command prints a new line to stdout, swaybar updates.
+>     # The default just shows the current date and time.
+>     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+>
+>     colors {
+>         statusline #ffffff
+>         background #323232
+>         inactive_workspace #32323200 #32323200 #5c5c5c
+>     }
+231,234d233
 < exec swaybg -i /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg -m fill
 <
 < for_window [app_id="librewolf"] floating enable
@@ -615,7 +626,6 @@ root@p14:~# cat /etc/modprobe.d/pcspkr.conf
 blacklist pcspkr
 #+END_example
 
-
 * /usr/local/bin/custom-startup.sh
 
 A script to set up our local choosings for our led and for our battery.
@@ -656,7 +666,6 @@ root@p14:~# systemctl enable --now custom-startup.service
 * led
 
 We switch of the annoying led on F4 (mic mute LED), see /usr/local/bin/custom-startup.sh here above.
-
 
 * battery
 
