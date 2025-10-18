@@ -486,8 +486,13 @@ gargle@p14:~$ sudo apt remove nano --purge
 * sound
 
 #+BEGIN_example
-gargle@p14:~$ sudo apt install wireplumber pipewire pipewire-pulse libspa-0.2-bluetooth
+gargle@p14:~$ sudo apt install wireplumber pipewire pipewire-pulse libspa-0.2-bluetooth ffmpeg
 #+END_example
+
+libspa-0.2-bluetooth wasn't installed by default.
+
+ffmpeg is needed because facebook and instagram videos and reels didn't start, to ensure that we have
+the necessary video codecs installed, such as H.264.
 
 * amdgpu module
 
