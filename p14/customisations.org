@@ -516,9 +516,16 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
 <
-224a220
+219,224d213
+<     # Special keys to take a screenshot with grimshot
+<     # bindsym Print exec grimshot save screen
+<     bindsym $mod+Print exec grimshot save active
+<     bindsym $mod+Shift+Print exec grimshot save area
+<     bindsym $mod+Mod1+Print exec grimshot save output
+<     bindsym $mod+Ctrl+Print exec grimshot save window
+230a220
 >     position top
-226,227c222,230
+232,233c222,230
 <     swaybar_command waybar
 <
 ---
@@ -531,7 +538,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-231,234d233
+237,240d233
 < exec swaybg -i /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg -m fill
 <
 < for_window [app_id="librewolf"] floating enable
