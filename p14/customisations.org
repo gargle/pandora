@@ -505,7 +505,7 @@ amdgpu
 * sway
 
 #+BEGIN_example
-gargle@p14:~/pandora$ sudo apt install sway sway-backgrounds waybar wmenu
+gargle@p14:~/pandora$ sudo apt install sway sway-backgrounds swaylock swayidle waybar wmenu
 #+END_example
 
 #+BEGIN_example
@@ -538,11 +538,15 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-237,240d233
+237,244d233
 < exec swaybg -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg -m fill
 <
-< for_window [app_id="librewolf"] floating enable
+< exec swayidle -w \
+<     timeout 300 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg' \
+<     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+<     before-sleep 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg' \
 <
+< for_window [app_id="librewolf"] floating enable
 #+END_example
 
 * lightdm
