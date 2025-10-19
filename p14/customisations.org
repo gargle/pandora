@@ -539,7 +539,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
 237,240d233
-< exec swaybg -i /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg -m fill
+< exec swaybg -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg -m fill
 <
 < for_window [app_id="librewolf"] floating enable
 <
@@ -552,8 +552,8 @@ gargle@p14:~/pandora$ sudo apt install lightdm lightdm-gtk-greeter
 #+END_example
 
 #+BEGIN_example
-gargle@p14:~/pandora$ ls -haltr /usr/share/backgrounds/sway/Don-Quixote\ 1920x1200.jpg
--rw-rw-r-- 1 root root 161K Sep 30 15:10 '/usr/share/backgrounds/sway/Don-Quixote 1920x1200.jpg'
+gargle@p14:~$ ls /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg
+'/usr/share/backgrounds/Don-Quixote 1920x1200.jpg'
 #+END_example
 
 We only change the background.
