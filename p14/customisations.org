@@ -504,28 +504,100 @@ amdgpu
 
 * sway
 
+** apt
+
 #+BEGIN_example
 gargle@p14:~/pandora$ sudo apt install sway sway-backgrounds swaylock swayidle waybar wmenu
 #+END_example
 
+** global settings for the monitors
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/sway/config.d/monitors.conf
+output eDP-1 pos 0 0 res 1920x1200
+output DP-7 pos 1920 0 res 1920x1080
+#+END_example
+
+** global settings for the background
+
+#+BEGIN_example
+output eDP-1 bg /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg fill
+output DP-7 bg /usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg fill
+#+END_example
+
+** global settings for the idle configuration
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/sway/config.d/idle.conf
+exec swayidle -w \
+    timeout 30 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
+                            -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg' \
+    timeout 60 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
+                              -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg'
+#+END_example
+
+** global settings for the keyboard
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/sway/config.d/keyboard.conf
+input * {
+  xkb_layout "us"
+  xkb_variant "altgr-weur"
+  xkb_options "compose:lctrl,ctrl:nocaps"
+}
+
+input <identifier> xkb_model "pc105"
+#+END_example
+
+** individual configuration, mainly bindsym, waybar, and floating_example
+
 #+BEGIN_example
 gargle@p14:~$ diff .config/sway/config /etc/sway/config
-113,117d112
+10a11,15
+> # Home row direction keys, like vim
+> set $left h
+> set $down j
+> set $up k
+> set $right l
+87a93,97
+>     bindsym $mod+$left focus left
+>     bindsym $mod+$down focus down
+>     bindsym $mod+$up focus up
+>     bindsym $mod+$right focus right
+>     # Or use $mod+[up|down|left|right]
+93a104,108
+>     bindsym $mod+Shift+$left move left
+>     bindsym $mod+Shift+$down move down
+>     bindsym $mod+Shift+$up move up
+>     bindsym $mod+Shift+$right move right
+>     # Ditto, with arrow keys
+98,102d112
 <
 <     # with Alt+Tab
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
 <
-219,224d213
+174a185,190
+>     bindsym $left resize shrink width 10px
+>     bindsym $down resize grow height 10px
+>     bindsym $up resize shrink height 10px
+>     bindsym $right resize grow width 10px
+>
+>     # Ditto, with arrow keys
+198,206d213
 <     # Special keys to take a screenshot with grimshot
 <     # bindsym Print exec grimshot save screen
 <     bindsym $mod+Print exec grimshot save active
 <     bindsym $mod+Shift+Print exec grimshot save area
 <     bindsym $mod+Mod1+Print exec grimshot save output
 <     bindsym $mod+Ctrl+Print exec grimshot save window
-230a220
+<     # lock the screen
+<     bindsym $mod+l exec swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
+<                                     -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg
+212a220
 >     position top
-232,233c222,230
+214,215c222,230
 <     swaybar_command waybar
 <
 ---
@@ -538,15 +610,10 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-237,244d233
-< exec swaybg -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg -m fill
-<
-< exec swayidle -w \
-<     timeout 300 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg' \
-<     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-<     before-sleep 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg'
+219,221d233
 <
 < for_window [app_id="librewolf"] floating enable
+<
 #+END_example
 
 * lightdm
@@ -556,8 +623,8 @@ gargle@p14:~/pandora$ sudo apt install lightdm lightdm-gtk-greeter
 #+END_example
 
 #+BEGIN_example
-gargle@p14:~$ ls /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg
-'/usr/share/backgrounds/Don-Quixote 1920x1200.jpg'
+gargle@p14:~$ ls /usr/share/backgrounds/*jpg
+'/usr/share/backgrounds/Don-Quixote 1920x1080.jpg'  '/usr/share/backgrounds/Don-Quixote 1920x1200.jpg'
 #+END_example
 
 We only change the background.
