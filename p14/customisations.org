@@ -530,9 +530,9 @@ output DP-7 bg /usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg fill
 #+BEGIN_example
 gargle@p14:~$ cat /etc/sway/config.d/idle.conf
 exec swayidle -w \
-    timeout 30 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
-                            -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg' \
-    timeout 60 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    timeout 300 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
+                             -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg' \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
     before-sleep 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
                               -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg'
 #+END_example
@@ -554,38 +554,42 @@ input <identifier> xkb_model "pc105"
 
 #+BEGIN_example
 gargle@p14:~$ diff .config/sway/config /etc/sway/config
-10a11,15
-> # Home row direction keys, like vim
+12,15c12,15
+< set $left left
+< set $down down
+< set $up up
+< set $right right
+---
 > set $left h
 > set $down j
 > set $up k
 > set $right l
-87a93,97
->     bindsym $mod+$left focus left
->     bindsym $mod+$down focus down
->     bindsym $mod+$up focus up
->     bindsym $mod+$right focus right
+96a97,101
 >     # Or use $mod+[up|down|left|right]
-93a104,108
->     bindsym $mod+Shift+$left move left
->     bindsym $mod+Shift+$down move down
->     bindsym $mod+Shift+$up move up
->     bindsym $mod+Shift+$right move right
->     # Ditto, with arrow keys
-98,102d112
+>     bindsym $mod+Left focus left
+>     bindsym $mod+Down focus down
+>     bindsym $mod+Up focus up
+>     bindsym $mod+Right focus right
+103,107c108,112
 <
 <     # with Alt+Tab
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
 <
-174a185,190
->     bindsym $left resize shrink width 10px
->     bindsym $down resize grow height 10px
->     bindsym $up resize shrink height 10px
->     bindsym $right resize grow width 10px
->
+---
 >     # Ditto, with arrow keys
-198,206d213
+>     bindsym $mod+Shift+Left move left
+>     bindsym $mod+Shift+Down move down
+>     bindsym $mod+Shift+Up move up
+>     bindsym $mod+Shift+Right move right
+184a190,195
+>     # Ditto, with arrow keys
+>     bindsym Left resize shrink width 10px
+>     bindsym Down resize grow height 10px
+>     bindsym Up resize shrink height 10px
+>     bindsym Right resize grow width 10px
+>
+203,211d213
 <     # Special keys to take a screenshot with grimshot
 <     # bindsym Print exec grimshot save screen
 <     bindsym $mod+Print exec grimshot save active
@@ -595,9 +599,9 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 <     # lock the screen
 <     bindsym $mod+l exec swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
 <                                     -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg
-212a220
+217a220
 >     position top
-214,215c222,230
+219,220c222,230
 <     swaybar_command waybar
 <
 ---
@@ -610,7 +614,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-219,221d233
+224,226d233
 <
 < for_window [app_id="librewolf"] floating enable
 <
