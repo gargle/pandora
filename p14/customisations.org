@@ -544,7 +544,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 < exec swayidle -w \
 <     timeout 300 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg' \
 <     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-<     before-sleep 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg' \
+<     before-sleep 'swaylock -f -i /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg'
 <
 < for_window [app_id="librewolf"] floating enable
 #+END_example
@@ -723,7 +723,7 @@ Control the brightness of the screen.
 
 #+BEGIN_example
 gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/brightness
-16
+24
 #+END_example
 
 #+BEGIN_example
@@ -732,8 +732,8 @@ gargle@p14:~/banking$ cat /sys/class/backlight/amdgpu_bl0/max_brightness
 #+END_example
 
 #+BEGIN_example
-gargle@p14:~/pandora$ echo 16 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
-16
+gargle@p14:~/pandora$ echo 24 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+24
 #+END_example
 
 * cal
