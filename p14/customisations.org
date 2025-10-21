@@ -638,7 +638,7 @@ gargle@p14:~$ grep -v '^#' /etc/lightdm/lightdm-gtk-greeter.conf
 [greeter]
 background=/usr/share/backgrounds/Don-Quixote 1920x1200.jpg
 default-user-image=/usr/share/icons/vendor/256x256/emblems/emblem-vendor.png
-active-monitor = eDP-1
+active-monitor=eDP-1
 #+END_example
 
 We remove the old Default Xsession entry:
