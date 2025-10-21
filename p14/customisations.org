@@ -631,7 +631,8 @@ gargle@p14:~$ ls /usr/share/backgrounds/*jpg
 '/usr/share/backgrounds/Don-Quixote 1920x1080.jpg'  '/usr/share/backgrounds/Don-Quixote 1920x1200.jpg'
 #+END_example
 
-We only change the background.
+We only change the background, the default-user-image becomes the debian logo,and we make sure our
+greeter starts on the laptop's own screen instead of on an external monitor.
 
 #+BEGIN_example
 gargle@p14:~$ grep -v '^#' /etc/lightdm/lightdm-gtk-greeter.conf
