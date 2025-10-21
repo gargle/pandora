@@ -638,6 +638,7 @@ gargle@p14:~$ grep -v '^#' /etc/lightdm/lightdm-gtk-greeter.conf
 [greeter]
 background=/usr/share/backgrounds/Don-Quixote 1920x1200.jpg
 default-user-image=/usr/share/icons/vendor/256x256/emblems/emblem-vendor.png
+active-monitor = eDP-1
 #+END_example
 
 We remove the old Default Xsession entry:
@@ -817,12 +818,18 @@ gargle@p14:~/pandora$ sudo apt install bsdmainutils
 
 * tmux
 
+** configuration
+
 #+BEGIN_example
 gargle@p14:~$ cat .tmux.conf
 unbind C-b
 set-option -g prefix C-j
 bind-key C-j send-prefix
 #+END_example
+
+** change foreground, background colours
+
+C-j : select-pane -t:.1 -P 'fg=white,bg=black'
 
 * foot
 
