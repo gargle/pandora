@@ -811,6 +811,21 @@ cal makes part of bsdmainutils.
 gargle@p14:~/pandora$ sudo apt install bsdmainutils
 #+END_example
 
+* pdf
+
+No more xpdf, we use zathura now, and we add an alias in [[.bashrc]].
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt install zathura
+#+END_example
+
+* .bashrc
+
+#+BEGIN_example
+gargle@p14:~$ tail -n 1 .bashrc
+alias xpdf='zathura'
+#+END_example
+
 * tmux
 
 ** configuration
