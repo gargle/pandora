@@ -560,33 +560,34 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 > set $down j
 > set $up k
 > set $right l
-96a97,101
+97,99c97,101
+<     # with Alt+Tab
+<     bindsym Alt+Tab focus next
+<     bindsym Shift+Alt+Tab focus prev
+---
 >     # Or use $mod+[up|down|left|right]
 >     bindsym $mod+Left focus left
 >     bindsym $mod+Down focus down
 >     bindsym $mod+Up focus up
 >     bindsym $mod+Right focus right
-103,106c108,112
-<
-<     # with Alt+Tab
-<     bindsym Alt+Tab focus next
-<     bindsym Shift+Alt+Tab focus prev
----
+105a108,112
 >     # Ditto, with arrow keys
 >     bindsym $mod+Shift+Left move left
 >     bindsym $mod+Shift+Down move down
 >     bindsym $mod+Shift+Up move up
 >     bindsym $mod+Shift+Right move right
-183a190,195
+133,134d139
+<     bindsym $mod+Ctrl+1 move workspace to output eDP-1
+<     bindsym $mod+Ctrl+2 move workspace to output DP-7
+184a190,195
 >     # Ditto, with arrow keys
 >     bindsym Left resize shrink width 10px
 >     bindsym Down resize grow height 10px
 >     bindsym Up resize shrink height 10px
 >     bindsym Right resize grow width 10px
 >
-202,210d213
+203,210d213
 <     # Special keys to take a screenshot with grimshot
-<     # bindsym Print exec grimshot save screen
 <     bindsym $mod+Print exec grimshot save active
 <     bindsym $mod+Shift+Print exec grimshot save area
 <     bindsym $mod+Mod1+Print exec grimshot save output
@@ -608,8 +609,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-221,222d233
-<
+221d233
 < for_window [app_id="librewolf"] floating enable
 #+END_example
 
