@@ -84,14 +84,14 @@ We tell the bios that f1-f12 are accessible without fnlock.
 
 #+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/network/interfaces
--rw-r--r-- 1 root root 322 Oct  2 16:19 /etc/network/interfaces
+-rw-r--r-- 1 root root 322 Oct  2 19:19 /etc/network/interfaces
 #+END_example
 
 #+BEGIN_example
 gargle@p14:~$ ls -haltr /etc/network/interfaces.d
 total 8.0K
 drwxr-xr-x 2 root root 4.0K Sep 17  2024 .
-drwxr-xr-x 7 root root 4.0K Oct  2 16:19 ..
+drwxr-xr-x 7 root root 4.0K Oct 17 13:09 ..
 #+END_example
 
 #+BEGIN_example
@@ -113,11 +113,6 @@ iface enp1s0f0 inet dhcp
 ** wlp2s0
 
 *** wpa_supplicant
-
-#+BEGIN_example
-gargle@p14:~$ ls -haltr /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
--rw-r--r-- 1 root root 1.3K Oct  2 15:36 /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
-#+END_example
 
 #+BEGIN_example
 gargle@p14:~$ head -n 5 /etc/wpa_supplicant/wpa_supplicant-wlp2s0.conf
@@ -160,11 +155,6 @@ network={
 #+END_example
 
 *** systemd
-
-#+BEGIN_example
-gargle@p14:~$ ls -haltr /etc/systemd/network/wlp2s0.network
--rw-r--r-- 1 root root 41 Oct  2 14:46 /etc/systemd/network/wlp2s0.network
-#+END_example
 
 #+BEGIN_example
 gargle@p14:~$ cat /etc/systemd/network/wlp2s0.network
@@ -500,14 +490,6 @@ amdgpu
 gargle@p14:~/pandora$ sudo apt install sway sway-backgrounds swaylock swayidle waybar wmenu
 #+END_example
 
-** global settings for the monitors
-
-#+BEGIN_example
-gargle@p14:~$ cat /etc/sway/config.d/monitors.conf
-output eDP-1 pos 0 0 res 1920x1200
-output DP-7 pos 1920 0 res 1920x1080
-#+END_example
-
 ** global settings for the background
 
 #+BEGIN_example
@@ -540,6 +522,30 @@ input * {
 input <identifier> xkb_model "pc105"
 #+END_example
 
+** gloabl settings for kanshi
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/sway/config.d/kanshi.conf
+exec --no-startup-id kanshi
+#+END_example
+
+** individual kanshi configuration
+
+#+BEGIN_example
+gargle@p14:~$ cat .config/kanshi/config
+profile docked {
+    output eDP-1 mode 1920x1200 position 0,0 scale 1 enable
+    output DP-7 mode 1920x1080 position 1920,0 scale 1 enable
+    # optional: ensure workspace assignment after profile applied
+    exec swaymsg 'workspace 1; move workspace to eDP-1'
+}
+
+profile undocked {
+    output eDP-1 mode 1920x1200 position 0,0 scale 1 enable
+    output DP-7 disable
+}
+#+END_example
+
 ** individual configuration, mainly bindsym, waybar, and floating_example
 
 #+BEGIN_example
@@ -560,26 +566,25 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >     bindsym $mod+Down focus down
 >     bindsym $mod+Up focus up
 >     bindsym $mod+Right focus right
-103,107c108,112
+103,106c108,112
 <
 <     # with Alt+Tab
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
-<
 ---
 >     # Ditto, with arrow keys
 >     bindsym $mod+Shift+Left move left
 >     bindsym $mod+Shift+Down move down
 >     bindsym $mod+Shift+Up move up
 >     bindsym $mod+Shift+Right move right
-184a190,195
+183a190,195
 >     # Ditto, with arrow keys
 >     bindsym Left resize shrink width 10px
 >     bindsym Down resize grow height 10px
 >     bindsym Up resize shrink height 10px
 >     bindsym Right resize grow width 10px
 >
-203,211d213
+202,210d213
 <     # Special keys to take a screenshot with grimshot
 <     # bindsym Print exec grimshot save screen
 <     bindsym $mod+Print exec grimshot save active
@@ -589,12 +594,11 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 <     # lock the screen
 <     bindsym $mod+l exec swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
 <                                     -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg
-217a220
->     position top
-219,220c222,230
+217c220,230
 <     swaybar_command waybar
-<
 ---
+>     position top
+>
 >     # When the status_command prints a new line to stdout, swaybar updates.
 >     # The default just shows the current date and time.
 >     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
@@ -604,10 +608,9 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-224,226d233
+221,222d233
 <
 < for_window [app_id="librewolf"] floating enable
-<
 #+END_example
 
 * lightdm
