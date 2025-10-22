@@ -613,33 +613,34 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 < for_window [app_id="librewolf"] floating enable
 #+END_example
 
-* lightdm
+* greetd
 
 #+BEGIN_example
-gargle@p14:~/pandora$ sudo apt install lightdm lightdm-gtk-greeter
+gargle@p14:~/pandora$ sudo apt install greetd wlgreet
 #+END_example
 
-#+BEGIN_example
-gargle@p14:~$ ls /usr/share/backgrounds/*jpg
-'/usr/share/backgrounds/Don-Quixote 1920x1080.jpg'  '/usr/share/backgrounds/Don-Quixote 1920x1200.jpg'
-#+END_example
-
-We only change the background, the default-user-image becomes the debian logo,and we make sure our
-greeter starts on the laptop's own screen instead of on an external monitor.
+We do not start agreety but wlgreet by means of sway.
 
 #+BEGIN_example
-gargle@p14:~$ grep -v '^#' /etc/lightdm/lightdm-gtk-greeter.conf
-[greeter]
-background=/usr/share/backgrounds/Don-Quixote 1920x1200.jpg
-default-user-image=/usr/share/icons/vendor/256x256/emblems/emblem-vendor.png
-active-monitor=eDP-1
-#+END_example
+gargle@p14:~/pandora$ cat /etc/greetd/config.toml
+[terminal]
+# The VT to run the greeter on. Can be "next", "current" or a number
+# designating the VT.
+vt = 7
 
-We remove the old Default Xsession entry:
+# The default session, also known as the greeter.
+[default_session]
 
-#+BEGIN_example
-root@p14: cd /usr/share/xsessions/
-root@p14: mv lightdm-xsession.desktop lightdm-xsession.desktop.old
+# `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
+# with whatever you want started, such as `sway`.
+#command = "/usr/sbin/agreety --cmd '${SHELL:-/bin/sh}'"
+# if using wlgreet
+command = "sway --config /etc/greetd/sway-config"
+
+# The user to run the command as. The privileges this user must have depends
+# on the greeter. A graphical greeter may for example require the user to be
+# in the `video` group.
+user = "_greetd"
 #+END_example
 
 * waybar
