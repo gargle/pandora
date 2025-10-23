@@ -492,18 +492,6 @@ output eDP-1 bg /usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg fill
 output DP-7 bg /usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg fill
 #+END_example
 
-** global settings for the idle configuration
-
-#+BEGIN_example
-gargle@p14:~$ cat /etc/sway/config.d/idle.conf
-exec swayidle -w \
-    timeout 300 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
-                             -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg' \
-    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
-                              -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg'
-#+END_example
-
 ** global settings for the keyboard
 
 #+BEGIN_example
@@ -543,6 +531,9 @@ profile undocked {
 
 ** individual configuration, mainly bindsym, waybar, and floating_example
 
+We put the idle definition here and do not make it global because greetd has no login shell and no
+password.
+
 #+BEGIN_example
 gargle@p14:~$ diff .config/sway/config /etc/sway/config
 12,15c12,15
@@ -555,7 +546,14 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 > set $down j
 > set $up k
 > set $right l
-97,99c97,101
+49,54d48
+< exec swayidle -w \
+<     timeout 300 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
+<                              -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg' \
+<     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+<     before-sleep 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
+<                               -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg'
+103,105c97,101
 <     # with Alt+Tab
 <     bindsym Alt+Tab focus next
 <     bindsym Shift+Alt+Tab focus prev
@@ -565,23 +563,23 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >     bindsym $mod+Down focus down
 >     bindsym $mod+Up focus up
 >     bindsym $mod+Right focus right
-105a108,112
+111a108,112
 >     # Ditto, with arrow keys
 >     bindsym $mod+Shift+Left move left
 >     bindsym $mod+Shift+Down move down
 >     bindsym $mod+Shift+Up move up
 >     bindsym $mod+Shift+Right move right
-133,134d139
+139,140d139
 <     bindsym $mod+Ctrl+1 move workspace to output eDP-1
 <     bindsym $mod+Ctrl+2 move workspace to output DP-7
-184a190,195
+190a190,195
 >     # Ditto, with arrow keys
 >     bindsym Left resize shrink width 10px
 >     bindsym Down resize grow height 10px
 >     bindsym Up resize shrink height 10px
 >     bindsym Right resize grow width 10px
 >
-203,210d213
+209,216d213
 <     # Special keys to take a screenshot with grimshot
 <     bindsym $mod+Print exec grimshot save output
 <     bindsym $mod+Shift+Print exec grimshot save area
@@ -590,7 +588,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 <     # lock the screen
 <     bindsym $mod+l exec swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
 <                                     -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg
-217c220,230
+223c220,230
 <     swaybar_command waybar
 ---
 >     position top
@@ -604,7 +602,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         background #323232
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
-221d233
+227d233
 < for_window [app_id="librewolf"] floating enable
 #+END_example
 
