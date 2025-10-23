@@ -636,6 +636,13 @@ command = "sway --config /etc/greetd/sway-config"
 user = "_greetd"
 #+END_example
 
+We limit wlgreet to eDP-1 by switching of DP-7.
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/greetd/sway-config.d/noDP-7.conf
+output DP-7 disable
+#+END_example
+
 * waybar
 
 We only show our wifi, our battery, and the year and date.
