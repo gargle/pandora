@@ -819,6 +819,14 @@ No more xpdf, we use zathura now, and we add an alias in [[.bashrc]].
 gargle@p14:~$ sudo apt install zathura
 #+END_example
 
+* image viewer
+
+feh and display (imagemagick) do not work without X, so I removed them.  We use swayimg instead.
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt install swayimg
+#+END_example
+
 * .bashrc
 
 #+BEGIN_example
