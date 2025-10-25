@@ -30,6 +30,7 @@ ii  binutils-x86-64-linux-gnu            2.44-3                               am
 ii  bsdextrautils                        2.41-5                               amd64        extra utilities from 4.4BSD-Lite
 ii  bsdmainutils                         12.1.8                               all          Transitional package for more utilities from FreeBSD
 ii  bsdutils                             1:2.41-5                             amd64        basic utilities from 4.4BSD-Lite
+ii  build-essential                      12.12                                amd64        Informational list of build-essential packages
 ii  busybox                              1:1.37.0-6+b3                        amd64        Tiny utilities for small and embedded systems
 ii  bzip2                                1.0.8-6                              amd64        high-quality block-sorting file compressor - utilities
 ii  ca-certificates                      20250419                             all          Common CA certificates
@@ -76,6 +77,7 @@ ii  distro-info-data                     0.66                                 al
 ii  dmidecode                            3.6-2                                amd64        SMBIOS/DMI table decoder
 ii  dmsetup                              2:1.02.205-2                         amd64        Linux Kernel Device Mapper userspace library
 ii  dpkg                                 1.22.21                              amd64        Debian package management system
+ii  dpkg-dev                             1.22.21                              all          Debian package development tools
 ii  dracut-install                       106-6                                amd64        dracut is an event driven initramfs infrastructure (dracut-install)
 ii  dvidvi                               1.0-10.2                             amd64        Manipulate .dvi files
 ii  dvipng                               1.18-1                               amd64        convert DVI files to PNG graphics
@@ -90,6 +92,7 @@ ii  emacsen-common                       3.0.8                                al
 ii  exim4-base                           4.98.2-1                             amd64        support files for all Exim MTA (v4) packages
 ii  exim4-config                         4.98.2-1                             all          configuration for the Exim MTA (v4)
 ii  exim4-daemon-light                   4.98.2-1                             amd64        lightweight Exim MTA (v4) daemon
+ii  fakeroot                             1.37.1.1-1                           amd64        tool for simulating superuser privileges
 ii  fdisk                                2.41-5                               amd64        collection of partitioning utilities
 ii  feynmf                               1.08-14                              all          set of LaTeX macros for creating Feynman diagrams
 ii  file                                 1:5.46-5                             amd64        Recognize the type of data in a file using "magic" numbers
@@ -195,7 +198,15 @@ ii  fonts-unfonts-extra                  1:1.0.2-080608+dfsg-11               al
 ii  fonts-urw-base35                     20200910-8                           all          font set metric-compatible with the 35 PostScript Level 2 Base Fonts
 ii  foot                                 1.21.0-2                             amd64        Fast, lightweight and minimalistic Wayland terminal emulator
 ii  fragmaster                           1.8-2                                all          use of psfrag constructs with pdflatex
+ii  g++                                  4:14.2.0-1                           amd64        GNU C++ compiler
+ii  g++-14                               14.2.0-19                            amd64        GNU C++ compiler
+ii  g++-14-x86-64-linux-gnu              14.2.0-19                            amd64        GNU C++ compiler for x86_64-linux-gnu architecture
+ii  g++-x86-64-linux-gnu                 4:14.2.0-1                           amd64        GNU C++ compiler for the amd64 architecture
+ii  gcc                                  4:14.2.0-1                           amd64        GNU C compiler
+ii  gcc-14                               14.2.0-19                            amd64        GNU C compiler
 ii  gcc-14-base:amd64                    14.2.0-19                            amd64        GCC, the GNU Compiler Collection (base package)
+ii  gcc-14-x86-64-linux-gnu              14.2.0-19                            amd64        GNU C compiler for the x86_64-linux-gnu architecture
+ii  gcc-x86-64-linux-gnu                 4:14.2.0-1                           amd64        GNU C compiler for the amd64 architecture
 ii  gettext-base                         0.23.1-2                             amd64        GNU Internationalization utilities for the base system
 ii  ghostscript                          10.05.1~dfsg-1+deb13u1               amd64        interpreter for the PostScript language and for PDF
 ii  git                                  1:2.47.3-0+deb13u1                   amd64        fast, scalable, distributed revision control system
@@ -268,6 +279,9 @@ ii  less                                 668-1                                am
 ii  libabsl20240722:amd64                20240722.0-4                         amd64        extensions to the C++ standard library
 ii  libacl1:amd64                        2.3.2-2+b1                           amd64        access control list - shared library
 ii  libalgorithm-c3-perl                 0.11-2                               all          Perl module for merging hierarchies using the C3 algorithm
+ii  libalgorithm-diff-perl               1.201-1                              all          module to find differences between files
+ii  libalgorithm-diff-xs-perl            0.04-9                               amd64        module to find differences between files (XS accelerated)
+ii  libalgorithm-merge-perl              0.08-5                               all          Perl module for three-way merge of textual data
 ii  libaom3:amd64                        3.12.1-1                             amd64        AV1 Video Codec Library
 ii  libapache-pom-java                   33-2                                 all          Maven metadata for all Apache Software projects
 ii  libapparmor1:amd64                   4.1.0-1                              amd64        changehat AppArmor library
@@ -323,6 +337,7 @@ ii  libcap2:amd64                        1:2.75-10+b1                         am
 ii  libcap2-bin                          1:2.75-10+b1                         amd64        POSIX 1003.1e capabilities (utilities)
 ii  libcarp-clan-perl                    6.08-2                               all          Perl enhancement to Carp error logging facilities
 ii  libcbor0.10:amd64                    0.10.2-2                             amd64        library for parsing and generating CBOR (RFC 7049)
+ii  libcc1-0:amd64                       14.2.0-19                            amd64        GCC cc1 plugin for GDB
 ii  libclass-accessor-perl               0.51-2                               all          Perl module that automatically generates accessors
 ii  libclass-c3-perl                     0.35-2                               all          pragma for using the C3 method resolution order
 ii  libclass-c3-xs-perl                  0.15-1+b6                            amd64        Perl module to accelerate Class::C3
@@ -383,6 +398,7 @@ ii  libdist-checkconflicts-perl          0.11-2                               al
 ii  libdjvulibre-text                    3.5.28-2.2                           all          Linguistic support files for libdjvulibre
 ii  libdjvulibre21:amd64                 3.5.28-2.2                           amd64        Runtime support for the DjVu image format
 ii  libdouble-conversion3:amd64          3.3.1-1                              amd64        routines to convert IEEE floats to and from strings
+ii  libdpkg-perl                         1.22.21                              all          Dpkg perl modules
 ii  libdrm-amdgpu1:amd64                 2.4.124-2                            amd64        Userspace interface to amdgpu-specific kernel DRM services -- runtime
 ii  libdrm-common                        2.4.124-2                            all          Userspace interface to kernel DRM services -- common files
 ii  libdrm-intel1:amd64                  2.4.124-2                            amd64        Userspace interface to intel-specific kernel DRM services -- runtime
@@ -413,6 +429,7 @@ ii  libexception-class-perl              1.45-1                               al
 ii  libexpat1:amd64                      2.7.1-2                              amd64        XML parsing C library - runtime library
 ii  libexporter-tiny-perl                1.006002-1                           all          tiny exporter similar to Sub::Exporter
 ii  libext2fs2t64:amd64                  1.47.2-3+b3                          amd64        ext2/ext3/ext4 file system libraries
+ii  libfakeroot:amd64                    1.37.1.1-1                           amd64        tool for simulating superuser privileges - shared libraries
 ii  libfcft4t64                          3.3.1-1                              amd64        font loading and glyph rasterization library
 ii  libfdisk1:amd64                      2.41-5                               amd64        fdisk partitioning library
 ii  libffi8:amd64                        3.4.8-2                              amd64        Foreign Function Interface library runtime
@@ -760,6 +777,7 @@ ii  libsratom-0-0:amd64                  0.6.18-1                             am
 ii  libss2:amd64                         1.47.2-3+b3                          amd64        command-line interface parsing library
 ii  libssh2-1t64:amd64                   1.11.1-1                             amd64        SSH2 client-side library
 ii  libssl3t64:amd64                     3.5.1-1+deb13u1                      amd64        Secure Sockets Layer toolkit - shared libraries
+ii  libstdc++-14-dev:amd64               14.2.0-19                            amd64        GNU Standard C++ Library v3 (development files)
 ii  libstdc++6:amd64                     14.2.0-19                            amd64        GNU Standard C++ Library v3
 ii  libstring-crc32-perl                 2.100-2+b3                           amd64        Perl interface for cyclic redundancy check generation
 ii  libsub-exporter-perl                 0.990-1                              all          sophisticated exporter for custom-built routines
@@ -932,6 +950,7 @@ ii  luametatex                           2.11.02+really2.11.01+ds-1+b1        am
 ii  luit                                 2.0.20240910-1                       amd64        locale and ISO 2022 support for Unicode terminals
 ii  mailutils                            1:3.19-1                             amd64        GNU mailutils utilities for handling mail
 ii  mailutils-common                     1:3.19-1                             all          common files for GNU mailutils
+ii  make                                 4.4.1-2                              amd64        utility for directing compilation
 ii  manpages                             6.9.1-1                              all          Manual pages about using a GNU/Linux system
 ii  manpages-dev                         6.9.1-1                              all          Manual pages about using GNU/Linux for development
 ii  mariadb-common                       1:11.8.3-0+deb13u1                   all          MariaDB database common config files (/etc/mysql/mariadb.conf.d/)
@@ -1156,6 +1175,7 @@ ii  xpdf                                 3.04+git20250304-1+b1                am
 ii  xserver-common                       2:21.1.16-1.3                        all          common files used by various X servers
 ii  xterm                                398-1                                amd64        X terminal emulator
 ii  xwayland                             2:24.1.6-1                           amd64        X server for running X clients under Wayland
+ii  xz-utils                             5.8.1-1                              amd64        XZ-format compression utilities
 ii  zip                                  3.0-15                               amd64        Archiver for .zip files
 ii  zlib1g:amd64                         1:1.3.dfsg+really1.3.1-1+b1          amd64        compression library - runtime
 ii  zram-tools                           0.3.7-1                              all          utilities for working with zram
