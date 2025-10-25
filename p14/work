@@ -11,6 +11,8 @@ ii  alsa-ucm-conf                        1.2.14-1                             al
 ii  apparmor                             4.1.0-1                              amd64        user-space parser utility for AppArmor
 ii  apt                                  3.0.3                                amd64        commandline package manager
 ii  apt-utils                            3.0.3                                amd64        package management related utility programs
+ii  aspell                               0.60.8.1-4                           amd64        GNU Aspell spell-checker
+ii  aspell-en                            2020.12.07-0-1                       all          English dictionary for GNU Aspell
 ii  asymptote                            3.02+ds-1                            amd64        script-based vector graphics language inspired by MetaPost
 ii  asymptote-doc                        3.02+ds-1                            all          documentation and examples for asymptote
 ii  at-spi2-common                       2.56.2-1                             all          Assistive Technology Service Provider Interface (common files)
@@ -65,6 +67,7 @@ ii  debianutils                          5.23.2                               am
 ii  default-jre                          2:1.21-76                            amd64        Standard Java or Java compatible Runtime
 ii  default-jre-headless                 2:1.21-76                            amd64        Standard Java or Java compatible Runtime (headless)
 ii  dhcpcd-base                          1:10.1.0-11                          amd64        DHCPv4 and DHCPv6 dual-stack client (binaries and exit hooks)
+ii  dictionaries-common                  1.30.10                              all          spelling dictionaries - common utilities
 ii  diffutils                            1:3.10-4                             amd64        File comparison utilities
 ii  dirmngr                              2.4.7-21+b3                          amd64        GNU privacy guard - network certificate management service
 ii  distro-info-data                     0.66                                 all          information about the distributions' releases (data files)
@@ -216,6 +219,8 @@ ii  guile-3.0-libs:amd64                 3.0.10+really3.0.10-4                am
 ii  gzip                                 1.13-1                               amd64        GNU compression utilities
 ii  hicolor-icon-theme                   0.18-2                               all          default fallback theme for FreeDesktop.org icon themes
 ii  hostname                             3.25                                 amd64        utility to set/show the host name or domain name
+ii  iamerican                            3.4.06-1                             all          American English dictionary for ispell (standard version)
+ii  ienglish-common                      3.4.06-1                             all          Common files for British and American ispell dictionaries
 ii  ifupdown                             0.8.44                               amd64        high level tools to configure network interfaces
 ii  imagemagick                          8:7.1.1.43+dfsg1-1+deb13u2           amd64        image manipulation programs -- binaries
 ii  imagemagick-7-common                 8:7.1.1.43+dfsg1-1+deb13u2           all          image manipulation programs -- infrastructure
@@ -232,6 +237,7 @@ ii  intel-microcode                      3.20250812.1~deb13u1                 am
 ii  iproute2                             6.15.0-1                             amd64        networking and traffic control tools
 ii  iputils-ping                         3:20240905-3                         amd64        Tools to test the reachability of network hosts
 ii  iso-codes                            4.18.0-1                             all          ISO language, territory, currency, script codes and their translations
+ii  ispell                               3.4.06-1                             amd64        International Ispell (an interactive spelling corrector)
 ii  iucode-tool                          2.3.1-3                              amd64        Intel processor microcode tool
 ii  java-common                          0.76                                 all          Base package for Java runtimes
 ii  javascript-common                    12+nmu1                              all          Base support for JavaScript library packages
@@ -267,6 +273,7 @@ ii  libapt-pkg7.0:amd64                  3.0.3                                am
 ii  libasan8:amd64                       14.2.0-19                            amd64        AddressSanitizer -- a fast memory error detector
 ii  libasound2-data                      1.2.14-1                             all          Configuration files and profiles for ALSA drivers
 ii  libasound2t64:amd64                  1.2.14-1                             amd64        shared library for ALSA applications
+ii  libaspell15:amd64                    0.60.8.1-4                           amd64        GNU Aspell spell-checker runtime library
 ii  libassuan9:amd64                     3.0.2-2                              amd64        IPC library for the GnuPG components
 ii  libasyncns0:amd64                    0.8-6+b5                             amd64        Asynchronous name service query library
 ii  libatk-bridge2.0-0t64:amd64          2.56.2-1                             amd64        AT-SPI 2 toolkit bridge - shared library
@@ -981,15 +988,19 @@ ii  python3-idna                         3.10-1                               al
 ii  python3-minimal                      3.13.5-1                             amd64        minimal subset of the Python language (default python3 version)
 ii  python3-olefile                      0.47-1                               all          Python module to read/write MS OLE2 files
 ii  python3-pil:amd64                    11.1.0-5+b1                          amd64        Python Imaging Library (Python3)
+ii  python3-pip-whl                      25.1.1+dfsg-1                        all          Python package installer (pip wheel)
 ii  python3-psutils                      3.3.8-1                              all          PostScript document handling libraries
 ii  python3-puremagic                    1.28-1                               all          pure-Python module to identify files by their magic signature
 ii  python3-pycryptodome                 3.20.0+dfsg-3                        amd64        cryptographic Python library (Python 3)
 ii  python3-pypdf                        5.4.0-1                              all          Pure-Python library built as a PDF toolkit (Python 3)
 ii  python3-reportbug                    13.2.0                               all          Python modules for interacting with bug tracking systems
 ii  python3-requests                     2.32.3+dfsg-5                        all          elegant and simple HTTP library for Python3, built for human beings
+ii  python3-setuptools-whl               78.1.1-0.1                           all          Python Distutils Enhancements (wheel package)
 ii  python3-urllib3                      2.3.0-3                              all          HTTP library with thread-safe connection pooling for Python3
+ii  python3-venv                         3.13.5-1                             amd64        venv module for python3 (default python3 version)
 ii  python3.13                           3.13.5-2                             amd64        Interactive high-level object-oriented language (version 3.13)
 ii  python3.13-minimal                   3.13.5-2                             amd64        Minimal subset of the Python language (version 3.13)
+ii  python3.13-venv                      3.13.5-2                             amd64        Interactive high-level object-oriented language (pyvenv binary, version 3.13)
 ii  qt5-gtk-platformtheme:amd64          5.15.15+dfsg-6                       amd64        Qt 5 GTK+ 3 platform theme
 ii  qttranslations5-l10n                 5.15.15-2                            all          translations for Qt 5
 ii  qtwayland5:amd64                     5.15.15-3                            amd64        QtWayland platform plugin
@@ -1099,8 +1110,8 @@ ii  util-linux                           2.41-5                               am
 ii  vim                                  2:9.1.1230-2                         amd64        Vi IMproved - enhanced vi editor
 ii  vim-common                           2:9.1.1230-2                         all          Vi IMproved - Common files
 ii  vim-runtime                          2:9.1.1230-2                         all          Vi IMproved - Runtime files
-rc  vim-tiny                             2:9.1.1230-2                         amd64        Vi IMproved - enhanced vi editor - compact version
 ii  vprerex                              1:6.5.1-1+b3                         amd64        Qt interface to prerex, a course prerequisite chart editor
+ii  wamerican                            2020.12.07-4                         all          American English dictionary words for /usr/share/dict
 ii  waybar                               0.12.0-1                             amd64        Highly customizable Wayland bar for Sway and Wlroots based compositors
 ii  wev                                  1.0.0-3                              amd64        tool for debugging events on a Wayland window
 ii  wget                                 1.25.0-2                             amd64        retrieves files from the web
