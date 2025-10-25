@@ -1128,6 +1128,7 @@ ii  upower                               1.90.9-1                             am
 ii  usbmuxd                              1.1.1-6                              amd64        USB multiplexor daemon for iPhone and iPod Touch devices
 ii  usbutils                             1:018-2                              amd64        Linux USB utilities
 ii  util-linux                           2.41-5                               amd64        miscellaneous system utilities
+ii  util-linux-extra                     2.41-5                               amd64        interactive login tools
 ii  vim                                  2:9.1.1230-2                         amd64        Vi IMproved - enhanced vi editor
 ii  vim-common                           2:9.1.1230-2                         all          Vi IMproved - Common files
 ii  vim-runtime                          2:9.1.1230-2                         all          Vi IMproved - Runtime files
