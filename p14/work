@@ -235,6 +235,7 @@ ii  gzip                                 1.13-1                               am
 ii  hicolor-icon-theme                   0.18-2                               all          default fallback theme for FreeDesktop.org icon themes
 ii  hostname                             3.25                                 amd64        utility to set/show the host name or domain name
 ii  iamerican                            3.4.06-1                             all          American English dictionary for ispell (standard version)
+ii  ibritish                             3.4.06-1                             all          British English dictionary for ispell (standard version)
 ii  ienglish-common                      3.4.06-1                             all          Common files for British and American ispell dictionaries
 ii  ifupdown                             0.8.44                               amd64        high level tools to configure network interfaces
 ii  imagemagick                          8:7.1.1.43+dfsg1-1+deb13u2           amd64        image manipulation programs -- binaries
