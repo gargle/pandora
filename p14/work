@@ -11,6 +11,7 @@ ii  alsa-ucm-conf                        1.2.14-1                             al
 ii  apparmor                             4.1.0-1                              amd64        user-space parser utility for AppArmor
 ii  apt                                  3.0.3                                amd64        commandline package manager
 ii  apt-listbugs                         0.1.47                               all          tool which lists critical bugs before each APT installation
+ii  apt-listchanges                      4.8                                  all          package change history notification tool
 ii  apt-utils                            3.0.3                                amd64        package management related utility programs
 ii  aspell                               0.60.8.1-4                           amd64        GNU Aspell spell-checker
 ii  aspell-en                            2020.12.07-0-1                       all          English dictionary for GNU Aspell
@@ -1003,6 +1004,7 @@ ii  python3-apt                          3.0.0                                am
 ii  python3-certifi                      2025.1.31+ds-1                       all          root certificates for validating SSL certs and verifying TLS hosts (python3)
 ii  python3-chardet                      5.2.0+dfsg-2                         all          Universal Character Encoding Detector (Python3)
 ii  python3-charset-normalizer           3.4.2-1                              amd64        charset, encoding and language detection (Python 3)
+ii  python3-debconf                      1.5.91                               all          interact with debconf from Python 3
 ii  python3-debian                       1.0.1                                all          Python 3 modules to work with Debian-related data formats
 ii  python3-debianbts                    4.1.1                                all          Python interface to Debian's Bug Tracking System
 ii  python3-idna                         3.10-1                               all          Python IDNA2008 (RFC 5891) handling (Python 3)
