@@ -43,6 +43,16 @@ Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, e
 First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
 keep those at the defaults.
 
+* sudo
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt install sudo
+#+END_example
+
+#+BEGIN_example
+root@p14:~# usermod -aG sudo gargle
+#+END_example
+
 * apt
 
 We need listbugs to know about issues before we install them.
