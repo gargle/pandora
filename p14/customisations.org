@@ -273,13 +273,37 @@ default cloudfare dns servers aren't used when connecting to a new access point 
 passphrase.
 
 #+BEGIN_example
-gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|option domain-name-servers"
+gargle@p14:~$ egrep 'fixed|name-servers' /var/lib/dhcp/dhclient.leases
+  fixed-address 192.168.129.206;
+  option domain-name-servers 192.168.128.1;
   fixed-address 192.168.1.191;
   option domain-name-servers 192.168.1.1;
-  fixed-address 192.168.128.49;
+  fixed-address 192.168.129.206;
   option domain-name-servers 192.168.128.1;
-  fixed-address 192.168.128.49;
-  option domain-name-servers 192.168.128.1;
+gargle@p14:~$ dig @192.168.128.1 guest.azjanportaels.be
+#+END_example
+
+#+BEGIN_example
+; <<>> DiG 9.20.15-1~deb13u1-Debian <<>> @192.168.128.1 guest.azjanportaels.be
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 18705
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;guest.azjanportaels.be.                IN      A
+
+;; ANSWER SECTION:
+guest.azjanportaels.be. 604800  IN      A       192.168.128.2
+guest.azjanportaels.be. 604800  IN      A       192.168.128.3
+
+;; Query time: 24 msec
+;; SERVER: 192.168.128.1#53(192.168.128.1) (UDP)
+;; WHEN: Thu Oct 30 10:11:26 CET 2025
+;; MSG SIZE  rcvd: 83
 #+END_example
 
 ** dnsmasq
