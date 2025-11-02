@@ -276,6 +276,29 @@ How to figure out the dns name servers that were returned by dhclient, if you ev
 default cloudfare dns servers aren't used when connecting to a new access point without a
 passphrase.
 
+*** figure out our ip
+
+#+BEGIN_example
+gargle@p14:~$ ip addr show wlp2s0
+4: wlp2s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 10:e1:8e:84:b0:d2 brd ff:ff:ff:ff:ff:ff
+    altname wlx10e18e84b0d2
+    inet 192.168.1.121/24 metric 1024 brd 192.168.1.255 scope global dynamic wlp2s0
+       valid_lft 42749sec preferred_lft 42749sec
+    inet6 2a02:1811:1415:9f80::270/128 scope global dynamic noprefixroute
+       valid_lft 42751sec preferred_lft 42751sec
+    inet6 fd92:d39a:76ce::270/128 scope global dynamic noprefixroute
+       valid_lft 42751sec preferred_lft 42751sec
+    inet6 fd92:d39a:76ce:0:12e1:8eff:fe84:b0d2/64 scope global mngtmpaddr noprefixroute
+       valid_lft forever preferred_lft forever
+    inet6 2a02:1811:1415:9f80:12e1:8eff:fe84:b0d2/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 243521sec preferred_lft 70721sec
+    inet6 fe80::12e1:8eff:fe84:b0d2/64 scope link proto kernel_ll
+       valid_lft forever preferred_lft forever
+#+END_example
+
+*** figure out our nameserver
+
 #+BEGIN_example
 gargle@p14:~$ egrep 'fixed|name-servers' /var/lib/dhcp/dhclient.leases
   fixed-address 192.168.129.206;
@@ -286,6 +309,8 @@ gargle@p14:~$ egrep 'fixed|name-servers' /var/lib/dhcp/dhclient.leases
   option domain-name-servers 192.168.128.1;
 gargle@p14:~$ dig @192.168.128.1 guest.azjanportaels.be
 #+END_example
+
+*** figure out the ip of the guest page
 
 #+BEGIN_example
 gargle@p14:~$ dig @192.168.128.1 guest.azjanportaels.be
