@@ -36,7 +36,7 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 
 * issues
 
-** DONE mayor
+** amdgpu module needed to load early
 
 +Sometimes X wouldn't start.  Turns out, the amdgpu module needed to load early, earlier than kms.+
 
@@ -46,6 +46,10 @@ keep those at the defaults.+
 ** status
 
 Now we are on wayland.  The issue with X cannot happen anymor.
+
+* en_GB.UTF-8
+
+Specified at install.
 
 * sudo
 
@@ -968,8 +972,6 @@ We set the line length to 102.
 ;; Set line width to 102 columns...
 (setq-default fill-column 102)
 #+END_example
-
-* TODO en_GB.UTF-8
 
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
