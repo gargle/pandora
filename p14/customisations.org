@@ -973,5 +973,9 @@ We set the line length to 102.
 (setq-default fill-column 102)
 #+END_example
 
+* magit
+
+C-x g l for the log.
+
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
