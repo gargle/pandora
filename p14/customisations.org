@@ -36,12 +36,20 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 
 * issues
 
-** mayor
+** amdgpu module needed to load early
 
-Sometimes X wouldn't start.  Turns out, the amdgpu module needs to load early, earlier than kms.
++Sometimes X wouldn't start.  Turns out, the amdgpu module needed to load early, earlier than kms.+
 
-First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
-keep those at the defaults.
++First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
+keep those at the defaults.+
+
+** status
+
+Now we are on wayland.  The issue with X cannot happen anymor.
+
+* en_GB.UTF-8
+
+Specified at install.
 
 * sudo
 
@@ -59,6 +67,58 @@ We need listbugs to know about issues before we install them.
 
 #+BEGIN_example
 gargle@p14:~$ sudo apt install apt-listbugs
+#+END_example
+
+* grub
+
+We keep most of the defaults, but change GRUB_CMDLINE_LINUX_DEFAULT and uncomment
+GRUB_TERMINAL=console.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ cat /etc/default/grub
+# If you change this file or any /etc/default/grub.d/*.cfg file,
+# run 'update-grub' afterwards to update /boot/grub/grub.cfg.
+# For full documentation of the options in these files, see:
+#   info -f grub -n 'Simple configuration'
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR=`( . /etc/os-release && echo ${NAME} )`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet nosplash"
+GRUB_CMDLINE_LINUX=""
+
+# If your computer has multiple operating systems installed, then you
+# probably want to run os-prober. However, if your computer is a host
+# for guest OSes installed via LVM or raw disk devices, running
+# os-prober can cause damage to those guest OSes as it mounts
+# filesystems to look for things.
+#GRUB_DISABLE_OS_PROBER=false
+
+# Uncomment to enable BadRAM filtering, modify to suit your needs
+# This works with Linux (no patch required) and with any kernel that obtains
+# the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)
+#GRUB_BADRAM="0x01234567,0xfefefefe,0x89abcdef,0xefefefef"
+
+# Uncomment to disable graphical terminal
+GRUB_TERMINAL=console
+
+# The resolution used on graphical terminal
+# note that you can use only modes which your graphic card supports via VBE/GOP/UGA
+# you can see them in real GRUB with the command `videoinfo'
+#GRUB_GFXMODE=640x480
+
+# Uncomment if you don't want GRUB to pass "root=UUID=xxx" parameter to Linux
+#GRUB_DISABLE_LINUX_UUID=true
+
+# Uncomment to disable generation of recovery mode menu entries
+#GRUB_DISABLE_RECOVERY="true"
+
+# Uncomment to get a beep at grub start
+#GRUB_INIT_TUNE="480 440 1"
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~/banking$ sudo update-grub
 #+END_example
 
 * partitions
@@ -220,14 +280,65 @@ How to figure out the dns name servers that were returned by dhclient, if you ev
 default cloudfare dns servers aren't used when connecting to a new access point without a
 passphrase.
 
+*** figure out our ip
+
 #+BEGIN_example
-gargle@p14:~/banking$ cat /var/lib/dhcp/dhclient.leases | egrep "fixed-address|option domain-name-servers"
+gargle@p14:~$ ip addr show wlp2s0
+4: wlp2s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 10:e1:8e:84:b0:d2 brd ff:ff:ff:ff:ff:ff
+    altname wlx10e18e84b0d2
+    inet 192.168.1.121/24 metric 1024 brd 192.168.1.255 scope global dynamic wlp2s0
+       valid_lft 42749sec preferred_lft 42749sec
+    inet6 2a02:1811:1415:9f80::270/128 scope global dynamic noprefixroute
+       valid_lft 42751sec preferred_lft 42751sec
+    inet6 fd92:d39a:76ce::270/128 scope global dynamic noprefixroute
+       valid_lft 42751sec preferred_lft 42751sec
+    inet6 fd92:d39a:76ce:0:12e1:8eff:fe84:b0d2/64 scope global mngtmpaddr noprefixroute
+       valid_lft forever preferred_lft forever
+    inet6 2a02:1811:1415:9f80:12e1:8eff:fe84:b0d2/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 243521sec preferred_lft 70721sec
+    inet6 fe80::12e1:8eff:fe84:b0d2/64 scope link proto kernel_ll
+       valid_lft forever preferred_lft forever
+#+END_example
+
+*** figure out our nameserver
+
+#+BEGIN_example
+gargle@p14:~$ egrep 'fixed|name-servers' /var/lib/dhcp/dhclient.leases
+  fixed-address 192.168.129.206;
+  option domain-name-servers 192.168.128.1;
   fixed-address 192.168.1.191;
   option domain-name-servers 192.168.1.1;
-  fixed-address 192.168.128.49;
+  fixed-address 192.168.129.206;
   option domain-name-servers 192.168.128.1;
-  fixed-address 192.168.128.49;
-  option domain-name-servers 192.168.128.1;
+gargle@p14:~$ dig @192.168.128.1 guest.azjanportaels.be
+#+END_example
+
+*** figure out the ip of the guest page
+
+#+BEGIN_example
+gargle@p14:~$ dig @192.168.128.1 guest.azjanportaels.be
+
+; <<>> DiG 9.20.15-1~deb13u1-Debian <<>> @192.168.128.1 guest.azjanportaels.be
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 56654
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;guest.azjanportaels.be.                IN      A
+
+;; ANSWER SECTION:
+guest.azjanportaels.be. 604800  IN      A       192.168.128.2
+guest.azjanportaels.be. 604800  IN      A       192.168.128.3
+
+;; Query time: 15 msec
+;; SERVER: 192.168.128.1#53(192.168.128.1) (UDP)
+;; WHEN: Thu Oct 30 10:47:15 CET 2025
+;; MSG SIZE  rcvd: 83
 #+END_example
 
 ** dnsmasq
@@ -866,7 +977,9 @@ We set the line length to 102.
 (setq-default fill-column 102)
 #+END_example
 
-* TODO en_GB.UTF-8
+* magit
+
+C-x g l for the log.
 
 * TODO backports
 https://ostechnix.com/enable-backports-testing-repositories-debian-13-trixie/
