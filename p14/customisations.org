@@ -949,7 +949,15 @@ C-j : select-pane -t:.1 -P 'fg=white,bg=black'
 
 ** change the colour of the cursor
 
+#+BEGIN_example
 echo -e '\033]12;green\007'
+#+END_example
+
+** change background to black, foreground to white, and a green cursor
+
+#+BEGIN_example
+echo -e '\033]11;#000000\033]10;#ffffff\033]12;green\007'
+#+END_example
 
 * foot
 
