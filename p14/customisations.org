@@ -40,6 +40,10 @@ deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
 
 +Sometimes X wouldn't start.  Turns out, the amdgpu module needed to load early, earlier than kms.+
 
+#+BEGIN_example
+/etc/modules-load.d/amdgpu.conf
+#+END_example
+
 +First we suspected networking, then xdm, then systemd-networkd-wait-online.sservice, but we all
 keep those at the defaults.+
 
