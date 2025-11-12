@@ -977,8 +977,11 @@ foreground=000000
 * gpg
 
 #+BEGIN_example
-laenenj@debian:/mnt/c/git/gargle$ sudo apt remove pinentry-cursus --purge
-laenenj@debian:/mnt/c/git/gargle$ sudo apt install pinentry-gtk2
+gargle@p14:~$ sudo apt install pinentry-fltk
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt remove pinentry-curses --purge
 #+END_example
 
 * emacs
