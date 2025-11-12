@@ -974,6 +974,13 @@ background=ffffff
 foreground=000000
 #+END_example
 
+* gpg
+
+#+BEGIN_example
+laenenj@debian:/mnt/c/git/gargle$ sudo apt remove pinentry-cursus --purge
+laenenj@debian:/mnt/c/git/gargle$ sudo apt install pinentry-gtk2
+#+END_example
+
 * emacs
 
 I moved the .emacs file to pandora/p14.
