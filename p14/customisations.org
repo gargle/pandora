@@ -867,6 +867,9 @@ echo 60 > /sys/class/power_supply/BAT0/charge_control_start_threshold
 
 # turn mic mute LED off
 echo 0 > /sys/class/leds/platform::micmute/brightness 2>/dev/null || true
+
+# turn lid LED off
+echo 0 > /sys/class/leds/tpacpi\:\:lid_logo_dot/brightness 2>/dev/null || true
 #+END_example
 
 #+BEGIN_example
