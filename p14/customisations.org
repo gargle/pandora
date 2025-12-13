@@ -392,6 +392,8 @@ gargle@p14:~/pandora$ ls -haltr /etc/dnsmasq-resolv.conf
 
 Our /etc/resolv.conf points to localhost, because of dnsmask, and because of librewolf.
 
+With a nameserver like 192.168.1.1 Librewolf would just go for the telenet dns servers instead.
+
 #+BEGIN_example
 gargle@p14:~/pandora$ cat /etc/resolv.conf
 nameserver 127.0.0.1
@@ -415,7 +417,7 @@ search lan
 nameserver 192.168.1.1
 #+END_example
 
-Enable dnsmask.service, if necessary.
+Enable dnsmask.service.
 
 #+BEGIN_example
 root@p14:~# systemctl enable --now dnsmask.service
