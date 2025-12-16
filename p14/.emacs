@@ -25,7 +25,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files '("/mnt/c/git/gargle/gargle.org"))
  '(package-selected-packages
-   '(magit org-roam)))
+   '(magit)))
  
 ;; Insert spaces instead of tabs
 (setq-default indent-tabs-mode nil)
@@ -53,14 +53,6 @@
    (perl . t)))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE" "CANCELLED(c)")))
-
-;############################################################################
-;# org-roam                                                                 #
-;############################################################################
-
-(setq org-roam-directory (file-truename "~/zettelkasten"))
-(setq find-file-visit-truename t)
-(org-roam-db-autosync-mode)
 
 ;############################################################################
 ;# mastodon                                                                 #
