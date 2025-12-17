@@ -432,6 +432,11 @@ gargle@p14:~$ sudo apt install ufw
 We go with the defaults, just make sure IPV6=yes is on.
 
 #+BEGIN_example
+gargle@p14:~/pandora$ grep IPV6 /etc/default/ufw
+IPV6=yes
+#+END_example
+
+#+BEGIN_example
 root@p14:~# ufw status verbose
 Status: active
 Logging: on (low)
