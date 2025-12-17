@@ -425,6 +425,10 @@ root@p14:~# systemctl enable --now dnsmask.service
 
 * firewall
 
+#+BEGIN_example
+gargle@p14:~$ sudo apt install ufw
+#+END_example
+
 We go with the defaults, just make sure IPV6=yes is on.
 
 #+BEGIN_example
@@ -677,7 +681,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 < exec swayidle -w \
 <     timeout 300 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
 <                              -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg' \
-<     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+<     timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 <     before-sleep 'swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
 <                               -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg'
 103,105c97,101
