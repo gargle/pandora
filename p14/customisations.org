@@ -950,6 +950,14 @@ cal makes part of bsdmainutils.
 gargle@p14:~/pandora$ sudo apt install bsdmainutils
 #+END_example
 
+* dc
+
+dc needs to be installed
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt install dc
+#+END_example
+
 * tmux
 
 ** configuration
