@@ -952,7 +952,7 @@ gargle@p14:~/pandora$ sudo apt install bsdmainutils
 
 * dc
 
-dc needs to be installed
+dc needs to be installed separately.  bc is installed because of zram-tools
 
 #+BEGIN_example
 gargle@p14:~$ sudo apt install dc
