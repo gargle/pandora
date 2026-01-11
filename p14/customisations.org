@@ -584,6 +584,11 @@ keyboard]].
 
 * editor
 
+#+BEGIN_EXAMPLE
+gargle@p14:~$ sudo apt install vim
+gargle@p14:~$ sudo apt remove vim-tiny --purge
+#+END_EXAMPLE
+
 We go for vim.basic instead of nano
 
 #+BEGIN_EXAMPLE
