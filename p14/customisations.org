@@ -744,7 +744,7 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >         inactive_workspace #32323200 #32323200 #5c5c5c
 >     }
 227d233
-< for_window [app_id="librewolf"] floating enable
+< # for_window [app_id="librewolf"] floating enable
 #+END_example
 
 * greetd
