@@ -720,7 +720,8 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 >     bindsym Up resize shrink height 10px
 >     bindsym Right resize grow width 10px
 >
-209,216d213
+208,216c213
+<     bindsym Print exec grim /tmp/screenshot.png
 <     # Special keys to take a screenshot with grimshot
 <     bindsym $mod+Print exec grimshot save output /tmp/screenshot.png
 <     bindsym $mod+Shift+Print exec grimshot save area /tmp/screenshot.png
@@ -729,6 +730,8 @@ gargle@p14:~$ diff .config/sway/config /etc/sway/config
 <     # lock the screen
 <     bindsym $mod+l exec swaylock -f -i eDP-1:/usr/share/backgrounds/Don-Quixote\ 1920x1200.jpg \
 <                                     -i DP-7:/usr/share/backgrounds/Don-Quixote\ 1920x1080.jpg
+---
+>     bindsym Print exec grim
 223c220,230
 <     swaybar_command waybar
 ---
