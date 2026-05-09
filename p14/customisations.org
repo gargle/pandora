@@ -49,11 +49,39 @@ keep those at the defaults.+
 
 ** status
 
-Now we are on wayland.  The issue with X cannot happen anymor.
+Now we are on wayland.  The issue with X cannot happen anymore.
 
 * en_GB.UTF-8
 
 Specified at install.
+
+* /usr/share/dict
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt remove --purge wamerican iamerican
+gargle@p14:~$ sudo apt install wbritish
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ dpkg -l | grep -i american
+ii  ienglish-common                       3.4.06-1                             all          Common files for British and American ispell dictionaries
+gargle@p14:~$ dpkg -l | grep -i british
+ii  ibritish                              3.4.06-1                             all          British English dictionary for ispell (standard version)
+ii  ienglish-common                       3.4.06-1                             all          Common files for British and American ispell dictionaries
+ii  wbritish                              2020.12.07-4                         all          British English dictionary words for /usr/share/dict
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ ls -haltr /usr/share/dict/
+total 968K
+-rw-r--r--   1 root root  199 Mar  2  2025 README.select-wordlist
+-rw-r--r--   1 root root 955K Mar 15  2025 british-english
+drwxr-xr-x 195 root root 4.0K Oct 25  2025 ..
+lrwxrwxrwx   1 root root   30 May  9 17:54 words -> /etc/dictionaries-common/words
+drwxr-xr-x   2 root root 4.0K May  9 17:54 .
+gargle@p14:~$ ls -haltr /etc/dictionaries-common/words
+lrwxrwxrwx 1 root root 31 May  9 17:55 /etc/dictionaries-common/words -> /usr/share/dict/british-english
+#+END_example
 
 * sudo
 
