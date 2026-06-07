@@ -343,7 +343,6 @@ gargle@p14:~$ egrep 'fixed|name-servers' /var/lib/dhcp/dhclient.leases
   option domain-name-servers 192.168.1.1;
   fixed-address 192.168.129.206;
   option domain-name-servers 192.168.128.1;
-gargle@p14:~$ dig @192.168.128.1 guest.azjanportaels.be
 #+END_example
 
 *** figure out the ip of the guest page
