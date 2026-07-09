@@ -1,0 +1,9 @@
+# librewolf -*- mode: org -*-
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELLED(c)
+#+STARTUP: overview logdone
+
+* flightradar
+
+Add *.flightradar24.com to privacy.resistFingerprinting.exemptedDomains
+
+Allow Create WebGL context, do not Always Ask nor Block
