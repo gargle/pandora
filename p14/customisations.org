@@ -1041,6 +1041,19 @@ gargle@p14:~$ sudo apt install pinentry-fltk
 gargle@p14:~$ sudo apt remove pinentry-curses --purge
 #+END_example
 
+Create a signature.  The output will be in whoami.txt.asc.
+
+#+BEGIN_example
+gargle@p14:~$ gpg --clearsign whoami.txt
+gargle@p14:~$ cp whoami.txt.asc whoami.txt
+#+END_example
+
+Encrypt the file.
+
+#+BEGIN_example
+gargle@p14:~$ gpg -e whoami.txt
+#+END_example
+
 * emacs
 
 I moved the .emacs file to pandora/p14.
