@@ -40,6 +40,7 @@
 ;# org-mode                                                                 #
 ;############################################################################
 
+(setq org-preview-latex-image-directory "/tmp/ltximg/")
 (setq org-babel-python-command "python3")
 (setq org-confirm-babel-evaluate nil)
 (org-babel-do-load-languages
