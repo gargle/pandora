@@ -1,3 +1,4 @@
+
 # p14/customisations -*- mode: org -*-
 #+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELLED(c)
 #+STARTUP: overview logdone
@@ -636,6 +637,83 @@ libspa-0.2-bluetooth wasn't installed by default.
 
 ffmpeg is needed because facebook and instagram videos and reels didn't start, to ensure that we have
 the necessary video codecs installed, such as H.264.
+
+* bluetooth
+
+Power off bluetooth (might take a little while).
+
+#+BEGIN_example
+gargle@p14:~/pandora$ /sbin/rfkill block bluetooth
+gargle@p14:~/pandora$ /sbin/rfkill list bluetooth
+0: tpacpi_bluetooth_sw: Bluetooth
+        Soft blocked: yes
+        Hard blocked: no
+#+END_example
+
+Power on bluetooth.
+
+#+BEGIN_example
+gargle@p14:~/pandora$ /sbin/rfkill unblock bluetooth
+gargle@p14:~/pandora$ /sbin/rfkill list bluetooth
+0: tpacpi_bluetooth_sw: Bluetooth
+        Soft blocked: no
+        Hard blocked: no
+5: hci0: Bluetooth
+        Soft blocked: no
+        Hard blocked: no
+#+END_example
+
+Find out what we have.
+
+#+BEGIN_example
+gargle@p14:~/pandora/p14$ bluetoothctl
+hci0 new_settings: powered bondable ssp br/edr le secure-conn wide-band-speech cis-central cis-peripheral iso-broadcaster sync-receiver
+Agent registered
+[CHG] Controller 10:E1:8E:84:B0:D3 Pairable: yes
+[bluetoothctl]> devices
+Device 2C:53:D7:8A:F3:08 R-Phonak hearing aid
+Device 00:1E:7C:A5:B5:EF JBL Endurance SPRINT
+[bluetoothctl]> quit
+#+END_example
+
+Switch on R-Phonak hearing aid.
+
+#+BEGIN_example
+gargle@p14:~/pandora/p14$ bluetoothctl
+hci0 new_settings: powered bondable ssp br/edr le secure-conn wide-band-speech cis-central cis-peripheral iso-broadcaster sync-receiver
+Agent registered
+[CHG] Controller 10:E1:8E:84:B0:D3 Pairable: yes
+[bluetoothctl]> connect 2c:53:d7:8a:f3:08
+Attempting to connect to 2c:53:d7:8a:f3:08
+[CHG] Device 2C:53:D7:8A:F3:08 Connected: yes
+[NEW] Endpoint /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep1
+[NEW] Endpoint /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep2
+[NEW] Endpoint /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep3
+[NEW] Transport /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep1/fd2
+[CHG] Transport /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep1/fd2 Delay: 0x07d0 (2000)
+Connection successful
+[CHG] Device 2C:53:D7:8A:F3:08 ServicesResolved: yes
+[R-Phonak hearing aid]> quit
+#+END_example
+
+Switch off R-Phonak hearing aid.
+
+#+BEGIN_example
+gargle@p14:~/pandora/p14$ bluetoothctl
+hci0 new_settings: powered bondable ssp br/edr le secure-conn wide-band-speech cis-central cis-peripheral iso-broadcaster sync-receiver
+Agent registered
+[CHG] Controller 10:E1:8E:84:B0:D3 Pairable: yes
+[R-Phonak hearing aid]> disconnect 2c:53:d7:8a:f3:08
+Attempting to disconnect from 2C:53:D7:8A:F3:08
+[DEL] Transport /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep1/fd2
+[DEL] Endpoint /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep1
+[DEL] Endpoint /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep2
+[DEL] Endpoint /org/bluez/hci0/dev_2C_53_D7_8A_F3_08/sep3
+[CHG] Device 2C:53:D7:8A:F3:08 ServicesResolved: no
+[CHG] Device 2C:53:D7:8A:F3:08 Connected: no
+Disconnection successful
+[bluetoothctl]> quit
+#+END_example
 
 * amdgpu module
 
