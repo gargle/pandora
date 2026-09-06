@@ -640,7 +640,19 @@ the necessary video codecs installed, such as H.264.
 
 * bluetooth
 
-Power off bluetooth (might take a little while).
+Switch on R-Phonak hearing aid.
+
+#+BEGIN_example
+bluetoothctl connect 2c:53:d7:8a:f3:08
+#+END_example
+
+Switch off R-Phonak hearing aid.
+
+#+BEGIN_example
+bluetoothctl disconnect 2c:53:d7:8a:f3:08
+#+END_example
+
+** Power off bluetooth (might take a little while).
 
 #+BEGIN_example
 gargle@p14:~/pandora$ /sbin/rfkill block bluetooth
@@ -650,7 +662,7 @@ gargle@p14:~/pandora$ /sbin/rfkill list bluetooth
         Hard blocked: no
 #+END_example
 
-Power on bluetooth.
+** Power on bluetooth.
 
 #+BEGIN_example
 gargle@p14:~/pandora$ /sbin/rfkill unblock bluetooth
@@ -663,7 +675,7 @@ gargle@p14:~/pandora$ /sbin/rfkill list bluetooth
         Hard blocked: no
 #+END_example
 
-Find out what we have.
+** Find out what we have.
 
 #+BEGIN_example
 gargle@p14:~/pandora/p14$ bluetoothctl
@@ -676,8 +688,9 @@ Device 00:1E:7C:A5:B5:EF JBL Endurance SPRINT
 [bluetoothctl]> quit
 #+END_example
 
-Switch on R-Phonak hearing aid.
+** Switch on R-Phonak heading aid in detail
 
+#+BEGIN_example
 #+BEGIN_example
 gargle@p14:~/pandora/p14$ bluetoothctl
 hci0 new_settings: powered bondable ssp br/edr le secure-conn wide-band-speech cis-central cis-peripheral iso-broadcaster sync-receiver
@@ -696,7 +709,7 @@ Connection successful
 [R-Phonak hearing aid]> quit
 #+END_example
 
-Switch off R-Phonak hearing aid.
+** Switch off R-Phonak heading aid in detail
 
 #+BEGIN_example
 gargle@p14:~/pandora/p14$ bluetoothctl
