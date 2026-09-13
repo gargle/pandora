@@ -12,29 +12,6 @@ gargle@p14:~/pandora$ cat /etc/debian_version
 13.1
 #+END_example
 
-#+BEGIN_example
-root@p14:~# cat /etc/apt/sources.list
-#deb cdrom:[Debian GNU/Linux 13.1.0 _Trixie_ - Official amd64 NETINST with firmware 20250906-10:22]/ trixie contrib main non-free-firmware
-
-deb http://ftp.be.debian.org/debian/ trixie main non-free-firmware
-deb-src http://ftp.be.debian.org/debian/ trixie main non-free-firmware
-
-deb http://security.debian.org/debian-security trixie-security main non-free-firmware
-deb-src http://security.debian.org/debian-security trixie-security main non-free-firmware
-
-# trixie-updates, to get updates before a point release is made;
-# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
-deb http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
-deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
-
-# This system was installed using removable media other than
-# CD/DVD/BD (e.g. USB stick, SD card, ISO image file).
-# The matching "deb cdrom" entries were disabled at the end
-# of the installation process.
-# For information about how to configure apt package sources,
-# see the sources.list(5) manual.
-#+END_example
-
 * issues
 
 ** amdgpu module needed to load early
@@ -95,6 +72,114 @@ root@p14:~# usermod -aG sudo gargle
 #+END_example
 
 * apt
+
+** modernize sources
+
+#+BEGIN_example
+gargle@p14:~$ sudo apt modernize-sources
+The following files need modernizing:
+  - /etc/apt/sources.list
+
+Modernizing will replace .list files with the new .sources format,
+add Signed-By values where they can be determined automatically,
+and save the old files into .list.bak files.
+
+This command supports the 'signed-by' and 'trusted' options. If yo
+have specified other options inside [] brackets, please transfer them
+manually to the output files; see sources.list(5) for a mapping.
+
+For a simulation, respond N in the following prompt.
+Rewrite 1 sources? [Y/n] Y
+Modernizing /etc/apt/sources.list...
+- Writing /etc/apt/sources.list.d/debian.sources
+#+END_example
+
+The files that we have.
+
+#+BEGIN_example
+gargle@p14:~$ ls -haltr /etc/apt/sources.list.*
+-rw-r--r-- 1 root root 1.1K Oct 22  2025 /etc/apt/sources.list.bak
+
+/etc/apt/sources.list.d:
+total 16K
+-rw-r--r--  1 root root  153 Sep 30  2025 extrepo_librewolf.sources
+-rw-r--r--  1 root root  648 Sep 13 17:12 debian.sources
+drwxr-xr-x  2 root root 4.0K Sep 13 17:12 .
+drwxr-xr-x 10 root root 4.0K Sep 13 17:13 ..
+#+END_example
+
+The old configuration is now in /etc/apt/sources.list.bak.
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/apt/sources.list.bak
+#deb cdrom:[Debian GNU/Linux 13.1.0 _Trixie_ - Official amd64 NETINST with firmware 20250906-10:22]/ trixie contrib main non-free-firmware
+
+deb http://ftp.be.debian.org/debian/ trixie main non-free-firmware
+deb-src http://ftp.be.debian.org/debian/ trixie main non-free-firmware
+
+deb http://security.debian.org/debian-security trixie-security main non-free-firmware
+deb-src http://security.debian.org/debian-security trixie-security main non-free-firmware
+
+# trixie-updates, to get updates before a point release is made;
+# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+deb http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
+deb-src http://ftp.be.debian.org/debian/ trixie-updates main non-free-firmware
+
+# This system was installed using removable media other than
+# CD/DVD/BD (e.g. USB stick, SD card, ISO image file).
+# The matching "deb cdrom" entries were disabled at the end
+# of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.
+#+END_example
+
+The new configuration is in /etc/apt/sources.list.d/debian.sources.
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/apt/sources.list.d/debian.sources
+# Modernized from /etc/apt/sources.list
+Types: deb deb-src
+URIs: http://ftp.be.debian.org/debian/
+Suites: trixie
+Components: main non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+# Modernized from /etc/apt/sources.list
+Types: deb deb-src
+URIs: http://security.debian.org/debian-security/
+Suites: trixie-security
+Components: main non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+# Modernized from /etc/apt/sources.list
+Types: deb deb-src
+URIs: http://ftp.be.debian.org/debian/
+Suites: trixie-updates
+Components: main non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+#+END_example
+
+** extrepo
+
+We use extrepo for librewolf.
+
+#+BEGIN_example
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable librewolf && sudo extrepo update librewolf
+sudo apt update && sudo apt install librewolf -y
+#+END_example
+
+#+BEGIN_example
+gargle@p14:~$ cat /etc/apt/sources.list.d/extrepo_librewolf.sources
+Types: deb
+Components: main
+Uris: https://repo.librewolf.net
+Suites: librewolf
+Architectures: amd64 arm64
+Signed-By: /var/lib/extrepo/keys/librewolf.asc
+#+END_example
+
+** listbugs
 
 We need listbugs to know about issues before we install them.
 
