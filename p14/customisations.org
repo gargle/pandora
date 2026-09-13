@@ -179,6 +179,14 @@ Architectures: amd64 arm64
 Signed-By: /var/lib/extrepo/keys/librewolf.asc
 #+END_example
 
+** apt list: third party APT-repositories confirm librewolf.
+
+#+BEGIN_example
+gargle@p14:~$ apt list '?narrow(?installed, ?not(?origin(Debian)))'
+librewolf/librewolf,now 155.0.1-1 amd64 [installed]
+Notice: There is 1 additional version. Please use the '-a' switch to see it
+#+END_example
+
 ** listbugs
 
 We need listbugs to know about issues before we install them.
