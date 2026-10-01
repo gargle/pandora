@@ -558,6 +558,11 @@ IPV6=yes
 #+END_example
 
 #+BEGIN_example
+gargle@p14:~/pandora$ sudo ufw enable
+Firewall is active and enabled on system startup
+#+END_example
+
+#+BEGIN_example
 root@p14:~# ufw status verbose
 Status: active
 Logging: on (low)
@@ -629,14 +634,6 @@ IPT_SYSCTL=/etc/ufw/sysctl.conf
 # nf_conntrack_tftp, nf_nat_tftp: TFTP support (server side)
 # nf_conntrack_sane: sane support
 IPT_MODULES=""
-#+END_example
-
-#+BEGIN_example
-root@p14:~# ufw status verbose
-Status: active
-Logging: on (low)
-Default: deny (incoming), allow (outgoing), disabled (routed)
-New profiles: skip
 #+END_example
 
 * swap
