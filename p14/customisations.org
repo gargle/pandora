@@ -250,7 +250,7 @@ gargle@p14:~/banking$ sudo update-grub
 * partitions
 
 We start with only /boot/efi, /boot, and an encrypted lvm with / and /home.  Swap we define by
-means of zam.
+means of zram.
 
 #+BEGIN_example
 gargle@p14:~$ lsblk
